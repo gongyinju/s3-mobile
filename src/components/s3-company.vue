@@ -1,50 +1,3 @@
-<!--
-<template>
-  <div>
-
-    <mt-button plain type="primary" size="small" @click="actionSheet">点击切换分公司</mt-button>
-{{actions}}
-    <mt-actionsheet
-      :actions="actions"
-      v-model="sheetVisible">
-      <ul>
-        <li></li>
-      </ul>
-    </mt-actionsheet>
-  </div>
-</template>
-
-<script>
-  export default {
-    data(){
-      return{
-        actions:[],
-        sheetVisible:false
-      };
-    },
-    computed(){
-      console.log(this)
-      this.actions = [
-        {name: "ABC供应链集团有限公司",method:this.changeCompany},
-        {name: "浙江工银聚集团有限公司", method:this.changeCompany},
-        {name: "浙江化工有限公司",method:this.changeCompany },
-        {name: "某某供应链集团有限公司",method:this.changeCompany}]
-    },
-    methods:{
-      actionSheet:function () {
-        this.sheetVisible = true;
-      },
-      changeCompany: function(){
-        console.log("切换此分公司")
-      }
-    }
-  }
-</script>
-
-<style>
-
-</style>
--->
 <template>
   <div class="changeCompany">
     <div class="page-actionsheet">
@@ -59,6 +12,38 @@
   </div>
 </template>
 
+
+
+<script type="text/babel">
+  export default {
+    name:'change-company',
+    data() {
+      return {
+        sheetVisible: false,
+        actions: [],
+        companyName:'切换分公司'
+      };
+    },
+    methods: {
+      changeCompany: function(e){
+        this.companyName =e.companyName;
+      }
+    },
+    mounted() {
+
+      s3.setURL('http://localhost:8080/mocks');
+      this.$http('/getBranchCompanyInfo',{},'s3core','get')
+        .then(res=>{
+          let branchCompany = res.data.data.branchCompany;
+          branchCompany.forEach((item,index)=> {
+            item.method = this.changeCompany;
+            item.name = item.companyName;
+            this.actions[index] = item;
+          })
+        })
+    }
+  };
+</script>
 <style>
   .page-actionsheet-wrapper{
     background-color: #fff;
@@ -80,36 +65,3 @@
     flex:1
   }
 </style>
-
-<script type="text/babel">
-  export default {
-    name:'change-company',
-    data() {
-      return {
-        sheetVisible: false,
-        actions: [],
-        companyName:'切换分公司'
-      };
-    },
-    methods: {
-      takePhoto() {
-        console.log('taking photo');
-      },
-      openAlbum() {
-        console.log('opening album');
-      },
-      goBack() {
-        history.go(-1);
-      }
-    },
-    mounted() {
-      this.actions = [{
-        name: '全部公司',
-        method: this.takePhoto
-      }, {
-        name: '分公司一',
-        method: this.openAlbum
-      }];
-    }
-  };
-</script>

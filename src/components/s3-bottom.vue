@@ -1,7 +1,8 @@
 <template>
   <div>
+    {{selected}}
       <mt-navbar v-model="selected" >
-        <mt-tab-item :id="item.pathUrl" v-for="item in bottomlist">
+        <mt-tab-item :id="item.pathUrl" v-for="item in bottomlist" @click.stop.prevent>
           <i class="iconfont" :class="item.icon"></i>
           <router-link :to="item.pathUrl" tag="div">{{item.text}}</router-link>
         </mt-tab-item>
@@ -16,10 +17,12 @@
     props: {
       bottomlist: {
         type: Array,
-        default: [
-          {icon:'icon-shouye-copy-copy-copy',text:'首页',pathUrl:'/'},
-          {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
-        ]
+        default: function () {
+          return [
+            {icon:'icon-shouye-copy-copy-copy',text:'首页',pathUrl:'/'},
+            {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
+          ]
+        }
       }
     },
     data () {
