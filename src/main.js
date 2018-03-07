@@ -2,70 +2,40 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import MintUI from 'mint-ui'
 import router from './router'
 import store from './store'
 import {HttpProtptype, AsyncComponent, JSLoader, CSSLoader} from './global'
-import axios from 'axios'
 
+import Mint from'mint-ui'
+import'mint-ui/lib/style.css'
+Vue.use(Mint);
 // global plugin
 Vue.use(HttpProtptype)
 Vue.use(AsyncComponent)
 Vue.use(JSLoader)
 Vue.use(CSSLoader)
-Vue.use(MintUI)
 Vue.config.productionTip = false
 
 
-// global
-if (window.localStorage && (window.localStorage.setItem('a', 123), window.localStorage.getItem('a') === '123')) {
-  window.istore = {
-    getItemLocal (key) {
-      if (localStorage.getItem(key)) {
-        return JSON.parse(localStorage.getItem(key))
-      } else {
-        return undefined
-      }
-    },
-    setItemLocal (key, value) {
-      localStorage.setItem(key, JSON.stringify(value))
-    },
-    removeItemLocal (key) {
-      localStorage.removeItem(key)
-    }
-  }
-} else {
-  let storage = {}
-  window.localStorageCache = {}
-  storage.setItemLocal = function (key, value) {
-    window.localStorageCache[key] = value
-  }
-  storage.getItemLocal = function (key) {
-    return window.localStorageCache[key]
-  }
-  storage.removeItemLocal = function (key) {
-    delete window.localStorageCache[key]
-  }
-  window.istore = storage
-}
-
 // dynamic router
 const loader = function (resolve, url) {
-  if (!window.istore.getItemLocal[url]) {
+  if (!s3.istore.getItemLocal[url]) {
     axios.get(url).then(function (res) {
       let asyncCom = new Function(`return ${res.data}`)()
-      window.istore.setItemLocal(url, asyncCom)
+      s3.istore.setItemLocal(url, asyncCom)
       resolve(asyncCom)
     })
   } else {
-    resolve(window.istore.getItemLocal[url])
+    resolve(s3.istore.getItemLocal[url])
   }
 }
 
 const dynamicRouter = function (router, outerRouter) {
   try {
     outerRouter.forEach(function (item) {
-      let path = '/' + item['path']
+      // let path = '/' + item['path']
+      let path = `/${item['path']}`
+
       router.addRoutes([
         {
           path: path,
