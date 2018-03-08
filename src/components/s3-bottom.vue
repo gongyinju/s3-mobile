@@ -1,6 +1,6 @@
 <template>
   <div>
-      <mt-navbar v-model="selected" >
+      <mt-navbar :value="selected" >
         <mt-tab-item :id="item.pathUrl" v-for="item in bottomlist" @click.stop.prevent>
           <i class="iconfont" :class="item.icon"></i>
           <router-link :to="item.pathUrl" tag="div">{{item.text}}</router-link>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="app" :class="{'haveHeader': isH}">
+    <div id="app">
       <router-view></router-view>
     </div>
     <s3-bottom :bottomlist="bottom" :selected = '$route.path'></s3-bottom>
@@ -8,13 +8,11 @@
 </template>
 
 <script>
-  //底部栏
   import s3Bottom from './components/s3-bottom.vue'
   export default {
     name: 'App',
     data () {
       return {
-        isH:false,
         bottom:[
           {icon:'icon-shouye-copy-copy-copy',text:'首页',pathUrl:'/'},
           {icon:'icon-tuangou',text:'订货',pathUrl:'/products'},
@@ -40,9 +38,6 @@
   }
   #app>div{
     padding-top: 46px;
-  }
-  .haveHeader{
-    top: 50px;
   }
   ul{
     list-style: none;
