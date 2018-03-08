@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{selected}}
       <mt-navbar v-model="selected" >
         <mt-tab-item :id="item.pathUrl" v-for="item in bottomlist" @click.stop.prevent>
           <i class="iconfont" :class="item.icon"></i>
@@ -8,7 +7,6 @@
         </mt-tab-item>
       </mt-navbar>
   </div>
-
 </template>
 
 <script>
@@ -23,18 +21,12 @@
             {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
           ]
         }
-      }
-    },
-    data () {
-      return {
-        selected:'',
-      }
-    },
-    method:{
-    },
-    created(){
-      this.selected = this.bottomlist[0].pathUrl;
-    },
+      },
+      selected:{
+        type: String,
+        default: '/'
+      },
+    }
   }
 </script>
 

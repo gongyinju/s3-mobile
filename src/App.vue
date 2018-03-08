@@ -3,10 +3,8 @@
     <div id="app" :class="{'haveHeader': isH}">
       <router-view></router-view>
     </div>
-    <s3-bottom :bottomlist="bottom"></s3-bottom>
+    <s3-bottom :bottomlist="bottom" :selected = '$route.path'></s3-bottom>
   </div>
-
-
 </template>
 
 <script>
@@ -26,7 +24,7 @@
     },
     components: {
       s3Bottom
-    }
+    },
   }
 </script>
 

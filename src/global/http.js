@@ -19,8 +19,7 @@ s3.ajax = function(id,paramStr,appid,method,timeout){
   if(method == 'post'){
     var P_post = new Promise(function(resolve, reject){
       axios.post(url,axios_config)
-        .then(function (res){      console.log(res)
-
+        .then(function (res){
           var retData =  res;
           if(retData["ESPRESSO_RETURN_VERSION"]){
             if(retData.status === "001"||retData.status === "002"||retData.status === "003"){
