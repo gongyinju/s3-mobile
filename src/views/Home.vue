@@ -11,13 +11,12 @@
         </li>
       </ul>
     </div>
-
   </div>
 </template>
-
 <script>
   //banner
   import s3Banner from '@/components/s3-banner.vue'
+
   export default {
     name: "home",
     data(){
@@ -25,15 +24,12 @@
         gridlist:[
           {icon:'icon-tuangou',text:'订货',pathUrl:'/products'},
           {icon:'icon-icon17',text:'审核',pathUrl:'/checklist'},
-          {icon:'icon-guanxi',text:'团购',pathUrl:'/orderlist'},
+          {icon:'icon-guanxi',text:'团购',pathUrl:'/orderlist'}
         ],
       }
     },
-    created(){
-//      this.$emit('title', '首页');
-    },
     components: {
-      s3Banner,
+      s3Banner
     }
   }
 </script>

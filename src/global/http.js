@@ -12,6 +12,7 @@ s3.ajax = function(url,param,appid,options){
   }else{
       option.url = option.baseUrl + '/'+ appid + url
   }
+<<<<<<< HEAD
   option.data = JSON.stringify(param)
   if(!urlReg.test(option.baseUrl) && !urlReg.test(url)){
       throw new Error("未定义的ajax提交地址 请先调用S3.setBaseUrl来定义ajax的提交地址.")
@@ -36,6 +37,36 @@ s3.ajax = function(url,param,appid,options){
         store.commit('setCurrentDealer',null)
         store.commit('setCurrentCompany',null)
         store.commit('setCurrentRole',null)
+=======
+  if(!submitUrl)
+    submitUrl = baseURL;
+  var url = submitUrl+'/'+appid+id;
+  timeout ? axios_config = {params:paramStr,timeout:timeout} : axios_config = {params:paramStr};
+  if(method == 'post'){
+    var P_post = new Promise(function(resolve, reject){
+      axios.post(url,axios_config)
+        .then(function (res){
+          var retData =  res;
+          if(retData["ESPRESSO_RETURN_VERSION"]){
+            if(retData.status === "001"||retData.status === "002"||retData.status === "003"){
+              retData.retCode = '400';
+              //加入stroe
+              store.commit('userLogout');
+              store.commit('setCurrentUser',null);
+              store.commit('setCurrentDealer',null);
+              store.commit('setCurrentCompany',null);
+              store.commit('setCurrentRole',null);
+              reject({
+                status:"400",
+                retCode:"400",
+                retMsg:'用户登陆已超时，请重新登陆'
+              });
+            }else
+              retData = retData.data;
+          }
+          resolve(retData);
+        }).catch(function (error) {
+>>>>>>> e1bd2ecdd2828a38bf23ab2e2fef665ba9cc4e9f
         reject({
             status:"400",
             retCode:"400",

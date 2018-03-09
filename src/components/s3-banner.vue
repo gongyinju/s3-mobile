@@ -9,18 +9,6 @@
 </template>
 
 <script>
-  //假数据
-  const Random = Mock.Random;
-  Mock.mock(`http://localhost:8080/mocks/getBanner`,{
-    "data": Array(3).fill(1).map(() => {
-      return {
-        src:Random.dataImage('640x280')
-      }
-    })
-  });
-
-
-
   export default {
     data(){
       return{
@@ -29,15 +17,15 @@
     },
     created(){
       let that = this;
-      axios.get('http://localhost:8080/mocks/getBanner')
+      s3.setURL('http://localhost:8080/mocks');
+      s3.ajax('/getBanner',{},'s3core')
         .then(function(res){
-          that.images = res.data.data;
+          that.images = res.data.data.images;
         })
         .catch(function(err){
           console.log(err);
         });
     }
-
   }
 </script>
 

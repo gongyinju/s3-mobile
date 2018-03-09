@@ -30,7 +30,6 @@
       }
     },
     mounted() {
-
       s3.setURL('http://localhost:8080/mocks');
       this.$http('/getBranchCompanyInfo',{},'s3core','get')
         .then(res=>{

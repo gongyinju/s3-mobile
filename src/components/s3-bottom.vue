@@ -1,19 +1,16 @@
 <template>
   <div>
-    {{selected}}
-      <mt-navbar v-model="selected" >
+      <mt-navbar :value="selected" >
         <mt-tab-item :id="item.pathUrl" v-for="item in bottomlist" @click.stop.prevent>
           <i class="iconfont" :class="item.icon"></i>
           <router-link :to="item.pathUrl" tag="div">{{item.text}}</router-link>
         </mt-tab-item>
       </mt-navbar>
   </div>
-
 </template>
 
 <script>
   export default {
-    name: "search",
     props: {
       bottomlist: {
         type: Array,
@@ -23,18 +20,12 @@
             {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
           ]
         }
-      }
-    },
-    data () {
-      return {
-        selected:'',
-      }
-    },
-    method:{
-    },
-    created(){
-      this.selected = this.bottomlist[0].pathUrl;
-    },
+      },
+      selected:{
+        type: String,
+        default: '/'
+      },
+    }
   }
 </script>
 
