@@ -1,12 +1,29 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
+
 Vue.use(VueRouter)
 import Home from '@/views/Home'
 
 let routes = [
   {
     path: '/',
-    component: Home
+    component: Home,
+    meta : {
+      requireAuth: true,
+    },
+  },
+  {
+    path: '/login',
+    component: function (resolve) {
+      require(['@/views/Login'], resolve)
+    }
+  },
+  {
+    path: '/firstlogin',
+    component: function (resolve) {
+      require(['@/views/FirstLogin'], resolve)
+    }
   },
   {
     path: '/products',
@@ -41,9 +58,23 @@ var router = new VueRouter({
  *
 */
 router.beforeEach((to, from, next) => {
-  // 进入路由前
-  console.log('导航开始，进入组件前，导航触发')
-  next()
+  // 在home路由中配置的meta
+  /*if(to.meta.requireAuth){
+    // 判断是否登录
+    if (store.getters.isLogedIn){
+      next();
+    }else {
+      // 没有登录跳转到登录页面，登录成功之后再返回到之前请求的页面
+      next({
+        path : '/login',
+        query : {redirect : to.fullPath}
+      })
+    }
+  }else {*/
+    // 进入路由前
+    console.log('导航开始，进入组件前，导航触发');
+    next()
+  // }
 })
 
 router.afterEach((to, from) => {
