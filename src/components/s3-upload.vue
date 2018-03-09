@@ -24,7 +24,6 @@
       }
     },
     methods: {
-
       upload(e) {
         console.log(this.uploadURL)
         var fileupload = e.target.files[0];

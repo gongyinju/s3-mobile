@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--go-right=right-->
-    <s3-header head-title="订货" go-back='true'  ></s3-header>
+    <s3-header head-title="订货" go-back='true' ></s3-header>
     <s3-search></s3-search>
     <s3-company></s3-company>
     <s3-list :list="products" :modules="modules" :icon="iconclass" :detail="detail"></s3-list>
@@ -20,7 +20,7 @@
         products:[],
         modules:'products',
         detail:'productDetail',
-        iconclass:'icon-icon17 colorred'
+        iconclass:'icon-icon17'
       };
     },
     created(){
