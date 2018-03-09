@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="person">
     <!--go-right=right-->
     <s3-header head-title="我的信息" go-back='true'  ></s3-header>
-    <h1>个人中心</h1>
+    <h2 >个人中心</h2>
   </div>
 </template>
 <script>
@@ -25,8 +25,8 @@
   }
 </script>
 <style>
-  h1{
-    position: relative;
-    top: 40px;
+  .person h2{
+    margin-top: 40px;
   }
+
 </style>
