@@ -16,6 +16,7 @@
 <script>
   //banner
   import s3Banner from '@/components/s3-banner.vue'
+
   export default {
     name: "home",
     data(){
@@ -28,7 +29,7 @@
       }
     },
     components: {
-      s3Banner,
+      s3Banner
     }
   }
 </script>

@@ -11,7 +11,6 @@
 
 <script>
   export default {
-    name: "search",
     props: {
       bottomlist: {
         type: Array,

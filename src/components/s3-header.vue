@@ -1,6 +1,6 @@
 <template>
   <div >
-    <mt-header :title="headTitle">
+    <mt-header :title="headTitle" fixed>
       <!--@click="$router.go(-1)"-->
       <router-link to="/" v-if="goBack" slot="left">
         <mt-button icon="back" ></mt-button>
@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    props: ['headTitle', 'goBack','goRight'],
+    props: ['headTitle', 'goBack','goRight','isFixed'],
     data(){
       return{
       };
@@ -28,5 +28,8 @@
 <style scoped>
 .mint-header-title{
   overflow-y: auto!important;
+}
+.mint-header.is-fixed {
+  z-index: 5;
 }
 </style>
