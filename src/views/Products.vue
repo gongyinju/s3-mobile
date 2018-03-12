@@ -4,7 +4,6 @@
     <s3-header head-title="订货" go-back='true'  ></s3-header>
     <s3-search></s3-search>
     <s3-company></s3-company>
-    <h1>product</h1>
   </div>
 </template>
 <script>
@@ -23,7 +22,7 @@
     components: {
       s3Header,
       s3Search,
-      s3Company,
+      s3Company
     },
     methods: {
     }
