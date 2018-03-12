@@ -1,5 +1,19 @@
 import store from './../store'
 
+
+var defaultOptions = {
+  method: 'post',
+  timeout: 3000,
+  headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' //x-www-form-urlencoded
+  },
+  baseUrl: 'http://localhost:8080/mocks'
+}
+
+s3.setBaseURL = function(url){
+  defaultOptions.baseUrl = url
+}
+
 s3.ajax = function(url,param,appid,options){
   var urlReg = /(http)(s?):\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/)?([a-zA-Z0-9\-\,\?\,\'\/\\\+&amp%\$#_]*)?/
 
@@ -34,7 +48,7 @@ s3.ajax = function(url,param,appid,options){
         }
       }
       
-      if(retdata["status"] && retdata.status === "004"){
+      if(retData["status"] && retData.status === "004"){
         store.commit('userLogout')
         store.commit('setCurrentUser',null)
         store.commit('setCurrentDealer',null)
