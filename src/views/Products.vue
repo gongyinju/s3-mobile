@@ -4,7 +4,8 @@
     <s3-header head-title="订货" go-back='true' ></s3-header>
     <s3-search></s3-search>
     <s3-company :branch-company="branchCompany"  :company-name="companyName"> </s3-company>
-    <s3-list :list="products" :modules="modules" :icon="iconclass" :detail="detail"></s3-list>
+    <!--列表访问详情为传入的modules加该列表的id-->
+    <s3-list :list="products" :modules="modules" :icon="iconclass" :detail="detail" ></s3-list>
   </div>
 </template>
 <script>
@@ -22,7 +23,7 @@
         detail:'productDetail',
         iconclass:'icon-icon17',
         branchCompany:[],
-        companyName:'切换分公司'
+        companyName:'切换分公司',
       };
     },
     methods: {

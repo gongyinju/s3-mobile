@@ -49,6 +49,7 @@
 <style scoped>
 .detail{
   font-size: 12px;
+  margin-top: 84px;
 }
 ul{
   list-style: none;

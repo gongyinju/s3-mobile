@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="page-cell">
-      <a class="mint-cell" v-for="(item,index) in list">
-        <span class="mint-cell-mask"></span>
+      <a  class="mint-cell" v-for="(item,index) in list">
+        <router-link :to='"/"+modules+"/"+item.id'  class="mint-cell" >
+          <span class="mint-cell-mask"></span>
           <div class="mint-cell-left"></div>
           <div class="mint-cell-wrapper">
             <div class="mint-cell-title" style="text-align: left;">
@@ -14,17 +15,19 @@
               <span style="color: #f37b1d;">{{item.statusName}}</span>
             </div>
             <div class="mint-cell-right"></div>
-        </div>
-        <div class="mint-cell-content">
-          <ul>
-            <li>
-              <p class="mint-p-list" v-for="(name,index) in modulesconfig">
-                <span>用户名称</span><span>{{item[name]}}</span>
-              </p>
-            </li>
-          </ul>
-        </div>
+          </div>
+          <div class="mint-cell-content">
+            <ul>
+              <li>
+                <p class="mint-p-list" v-for="(name,index) in modulesconfig">
+                  <span>用户名称</span><span>{{item[name]}}</span>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </router-link>
       </a>
+
     </div>
   </div>
 </template>
@@ -53,7 +56,7 @@
         detail:{
           type: String,
           default:'detail'
-        }
+        },
       },
       name: "list",
       data(){
@@ -63,6 +66,7 @@
       },
       created(){
         this.modulesconfig = config.modules[this.modules][this.detail];
+
       },
     }
 </script>
