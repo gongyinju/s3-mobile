@@ -10,15 +10,15 @@
 <script>
     export default {
         name: "s3-no-data",
-
     }
 </script>
 
 <style scoped>
-.noData{
-  width: 100%;
-  padding: 16vh 0;
-}
+  .noData{
+    width: 100%;
+    padding: 16vh 0;
+    text-align: center;
+  }
   .noData div{
     color: #b4b4b4;
   }

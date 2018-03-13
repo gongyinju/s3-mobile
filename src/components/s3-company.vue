@@ -17,6 +17,19 @@
 <script type="text/babel">
   export default {
     name:'change-company',
+    props: {
+      branchCompany: {
+        type: Array,
+        default: function () {
+          return []
+        }
+      }
+    },
+    methods: {
+      changeCompany: function(e){
+        this.companyName =e.companyName;
+      }
+    },
     data() {
       return {
         sheetVisible: false,
@@ -24,23 +37,13 @@
         companyName:'切换分公司'
       };
     },
-    methods: {
-      changeCompany: function(e){
-        this.companyName =e.companyName;
-      }
+    created(){
+      this.branchCompany.forEach((item,index)=> {
+       item.method = this.changeCompany;
+       item.name = item.companyName;
+       this.actions[index] = item;
+     })
     },
-    mounted() {
-      s3.setURL('http://localhost:8080/mocks');
-      this.$http('/getBranchCompanyInfo',{},'s3core','get')
-        .then(res=>{
-          let branchCompany = res.data.data.branchCompany;
-          branchCompany.forEach((item,index)=> {
-            item.method = this.changeCompany;
-            item.name = item.companyName;
-            this.actions[index] = item;
-          })
-        })
-    }
   };
 </script>
 <style>

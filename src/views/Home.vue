@@ -1,6 +1,6 @@
 <template>
   <div>
-    <s3-banner></s3-banner>
+    <s3-banner :images = 'images'></s3-banner>
     <div id="grid">
       <ul>
         <li v-for="(item,index) in gridlist" >
@@ -26,11 +26,18 @@
           {icon:'icon-icon17',text:'审核',pathUrl:'/checklist'},
           {icon:'icon-guanxi',text:'团购',pathUrl:'/orderlist'}
         ],
+        images:[],
       }
     },
     components: {
       s3Banner
-    }
+    },
+    created(){
+      s3.ajax('/getBanner',{},'s3core')
+        .then(res =>{
+          this.images = res.images;
+        })
+    },
   }
 </script>
 

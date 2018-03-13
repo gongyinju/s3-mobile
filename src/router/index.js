@@ -44,6 +44,12 @@ let routes = [
       require(['@/views/Person'], resolve)
     }
   },
+  {
+    path: '/checklist',
+    component: function (resolve) {
+      require(['@/views/CheckList'], resolve)
+    }
+  },
 ]
 
 var router = new VueRouter({
@@ -58,10 +64,14 @@ var router = new VueRouter({
  *
 */
 router.beforeEach((to, from, next) => {
+
   // 在home路由中配置的meta
-  /*if(to.meta.requireAuth){
+  if(to.meta.requireAuth){
+
+    console.log(store.state.user)
+    console.log(store.state.isLogedIn)
     // 判断是否登录
-    if (store.getters.isLogedIn){
+    if (store.state.isLogedIn){
       next();
     }else {
       // 没有登录跳转到登录页面，登录成功之后再返回到之前请求的页面
@@ -70,11 +80,11 @@ router.beforeEach((to, from, next) => {
         query : {redirect : to.fullPath}
       })
     }
-  }else {*/
+  }else {
     // 进入路由前
     console.log('导航开始，进入组件前，导航触发');
     next()
-  // }
+  }
 })
 
 router.afterEach((to, from) => {

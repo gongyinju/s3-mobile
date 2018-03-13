@@ -3,7 +3,7 @@
     <div id="app">
       <router-view></router-view>
     </div>
-    <s3-bottom :bottomlist="bottom" :selected = '$route.path'></s3-bottom>
+    <s3-bottom :bottomlist="bottom" :selected = '$route.path' v-if="$route.path !== '/login'"></s3-bottom>
   </div>
 </template>
 
@@ -35,6 +35,7 @@
     height: 100%;
     overflow: auto;
     background: #fff;
+    overflow: hidden;
   }
   #app>div{
     padding-top: 46px;

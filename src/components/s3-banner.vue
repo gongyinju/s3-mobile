@@ -10,21 +10,10 @@
 
 <script>
   export default {
-    data(){
-      return{
-        images:[]
-      };
-    },
-    created(){
-      let that = this;
-      s3.setBaseURL('http://localhost:8080/mocks');
-      s3.ajax('/getBanner',{},'s3core')
-        .then(function(res){
-          that.images = res.images;
-        })
-        .catch(function(err){
-          console.log(err);
-        });
+    props:{
+      images: {
+        type: Array
+      }
     }
   }
 </script>

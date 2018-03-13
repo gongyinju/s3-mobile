@@ -24,6 +24,8 @@
 
 <script>
   import { MessageBox } from 'mint-ui';
+  import store from '@/store'
+
   export default {
     data(){
       return{
@@ -31,13 +33,10 @@
         password:'',
         company:'核心企业电子供应链平台',
         fullyear:'',
-
       }
     },
     created(){
       this.fullyear = new Date().getFullYear();
-    },
-    beforeUpdate(){
     },
     methods: {
       submit: function(event) {
@@ -49,28 +48,39 @@
           MessageBox('提示', '密码名不能为空');
           return false
         }
-        var that = this
+        var that = this;
         function getPublickey() {
           let param = {"appid":"s3Core"};
-          s3.setURL('http://localhost:8080/mocks');
           let promise =  that.$http('/publicKey',param,'usermanage');
           return promise;
         };
         function login(publickey) {
-          s3.setURL('http://localhost:8080/mocks');
-          let pwd = publickey.data.data.exponent;
+          let pwd = publickey.exponent;
           let param = {"loginName":that.loginName,"password":pwd,"appid":"s3Core"};
+
           that.$http('/login',param,'usermanage')
             .then(res => {
-              let result = res.data.data;
-              console.log(result);
+              let result = res;
               if (result.retCode === '200'){
                 //首次登陆
                 if (result.isFirstLogin != "false"){
-                  that.$router.go('/firstlogin');
+                  //修改状态
+                  that.$store.commit('userLogin');
+                  that.$store.commit('increment', {
+                    user: {
+                      userName: that.loginName
+                    }
+                  })
+                  that.$router.push('/firstlogin');
                 }else{
-                  console.log('home');
-                  that.$router.go('/');
+                  //修改状态
+                  that.$store.commit('userLogin');
+                  that.$store.commit('increment', {
+                    user: {
+                      userName: that.loginName
+                    }
+                  })
+                  that.$router.push('/');
                 }
               }else{
                 MessageBox('提示', result.retMsg ||result.retmsg );
@@ -160,7 +170,7 @@
     text-align: center;
     width: 100%;
     position: absolute;
-    bottom: 20px;
+    bottom: 42px;
   }
 
   .container div.signup p {
