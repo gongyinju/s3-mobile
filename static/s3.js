@@ -1192,23 +1192,11 @@
     /**
      * 检查是否允许
      * @param fileToUpload
-     * @param f
      * @returns {{status: string, retMsg: string}}
      */
-    var checkFile = function(fileToUpload,f){
-        var result = {
-            status:"000",
-            retMsg:"校验成功"
-        };
+    var checkFile = function(fileToUpload){
 
-        if(fileToUpload.type.indexOf("image")>-1 && typeof f == "function"){
-            var reader = new FileReader();
-            reader.onload = function(event){
-                f(event.target.result);
-            };
-            reader.readAsDataURL(fileToUpload);
-        }
-
+        var extName = "";
         if(fileToUpload.name.lastIndexOf(".")>-1){
             extName = fileToUpload.name.substring(fileToUpload.name.lastIndexOf(".")+1);
         }
@@ -1220,72 +1208,184 @@
                 flag++;
             }
         }
+        
+
+        var result;
         if(flag == 0){
             result = {
                 status:"400",
-                retMsg:"不能上传此种格式的文件"
+                retMsg:"不符合规范的文件格式，请上传正确的文件格式"
             };
-        }else{
-            if(fileToUpload.size > 512000){
-                result = {
-                    status:"400",
-                    retMsg:"文件不能超过500KB"
-                };
-            }
+        }else if(fileToUpload.size > 2048000){
+            result = {
+                status:"400",
+                retMsg:"上传文件过大，请保持文件不能超过2M"
+            };
+        }else {
+            result = {
+                status:"000",
+                retMsg:"校验成功"
+            };
         }
         return result;
     };
 
     /**
+     * 压缩图片的函数
+     * @param file
+     * @param quality
+     * @param callback
+     * @returns {boolean}
+     */
+    var imageCompress = function(file,quality,callback){
+        console.log(typeof file)
+        if(!file || file.type.indexOf("image") == -1){
+            return false
+        }
+        var reader = new FileReader();
+        var image = new Image();
+        reader.readAsDataURL(file)
+        reader.onload = function(){
+            var url = reader.result;  //src
+            image.src = url
+        }
+        image.onload = function(){
+            var dataUrl = compress(image,quality)
+            callback(dataUrl)
+        }
+    }
+
+
+    /**
+     * 图片压缩函数，返回一个dataUrl
+     * @param img
+     * @param quality
+     * @returns {*}
+     */
+    var compress = function(img,quality){
+        quality = quality || 0.92
+
+        var width = img.width
+        var height = img.height
+        //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
+        var ratio = width * height / 4000000;
+        if (ratio>1) {
+            ratio = Math.sqrt(ratio);
+            width /= ratio;
+            height /= ratio;
+        }else {
+            ratio = 1;
+        }
+
+        // 压缩
+        var cvs = document.createElement('canvas')
+        var ctx = cvs.getContext('2d')
+        var tCanvas = document.createElement('canvas')
+        var tctx = tCanvas.getContext('2d')
+
+        cvs.width = width;
+        cvs.height = height; // 铺底色
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, cvs.width, cvs.height);
+
+        var count;
+        if ((count = width * height / 1000000) > 1) {
+            count = ~~(Math.sqrt(count)+1);
+            //计算要分成多少块瓦片
+            // 计算每块瓦片的宽和高
+            var nw = ~~(width / count);
+            var nh = ~~(height / count);
+            tCanvas.width = nw;
+            tCanvas.height = nh; for (var i = 0; i < count; i++) { for (var j = 0; j < count; j++) {
+                tctx.drawImage(img, i * nw * ratio, j * nh * ratio, nw * ratio, nh * ratio, 0, 0, nw, nh);
+                ctx.drawImage(tCanvas, i * nw, j * nh, nw, nh);
+            }
+            }
+        } else {
+            ctx.drawImage(img, 0, 0, width, height);
+        }
+
+        //进行最小压缩
+        var dataUrl = cvs.toDataURL('image/jpeg', quality);
+        console.log('压缩前：' + img.src.length);
+        console.log('压缩后：' + dataUrl.length);
+        console.log('压缩率：' + ~~(100 * (img.src.length - dataUrl.length) / img.src.length) + "%");
+        tCanvas.width = tCanvas.height = cvs.width = cvs.height = 0;
+        return dataUrl;
+    }
+
+
+    /**
+     * 图片转换函数
+     * @param data
+     */
+    function dataURLToFile(data) {
+        data = window.atob(data.split(",")[1]);
+        var ia = new Uint8Array(data.length)
+        for(var i = 0; i< data.length; i++){
+            ia[i] = data.charCodeAt(i);
+        }
+        var file = new Blob([ia],{ type : 'image/jpeg'})
+        var fd = new FormData();
+        fd.append('file',file);
+        return fd;
+    }
+
+
+    /**
      * 上传文件
+     * @param url 上传地址
      * @param fileToUpload  上传的文件
      * @param data  带数据的上传
-     * @param url 上传地址
      */
-    var uploadFileToUrl = function(fileToUpload,data,url){
-        var fd = new FormData();
-        fd.append("file",fileToUpload);
+    var uploadFileToUrl = function(url,fileToUpload,data){
+        var urlReg = /(http)(s?):\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/)?([a-zA-Z0-9\-\,\?\,\'\/\\\+&amp;%\$#_]*)?/;
+        if(!urlReg.test(url)){
+            throw new Error("未定义的上传文件地址, 请通过公共函数getUploadURL来定义上传地址.");
+        }
+
+        // 填充文件
+        var fd;
+        if(typeof fileToUpload == 'object' &&　fileToUpload.type){
+            fd = new FormData();
+            fd.append("file",fileToUpload);
+        }else{
+            fd = dataURLToFile(fileToUpload)
+        }
+
+        // 增加其他参数
         if(typeof data === "object"){
             for(var key in data){
                 fd.append(key,data[key]);
             }
         }
-
-        var uploadURL;
-        if(url != undefined){
-            uploadURL = url;
-        }else if(typeof getUploadURL == 'function'){
-            uploadURL = getUploadURL();
-        }
-
-        if(uploadURL == undefined){
-            throw new Error("未定义的上传文件地址, 请通过公共函数getUploadURL来定义上传地址.");
-        }else{
-            var P = new Promise(function(resolve, reject){
-                axios.post(uploadURL,fd)
-                    .then(function(res){
-                        var retData = res;
-                        if(retData["ESPRESSO_RETURN_VERSION"]) {
-                            if (retData.status === "001" || retData.status === "002" || retData.status === "003") {
-                                retData.retCode = '400';
-                            } else{
-                                retData = retData.data;
-                            }
+        var promise = new Promise(function(resolve, reject){
+            axios.post(url,fd,{
+                headers: { 'Content-Type' : 'multipart/form-data'}
+            })
+                .then(function(res){
+                    var retData = res;
+                    if(retData["ESPRESSO_RETURN_VERSION"]) {
+                        if (retData.status === "001" || retData.status === "002" || retData.status === "003") {
+                            retData.retCode = '400';
+                        } else{
+                            retData = retData.data;
                         }
-                        resolve(retData);
-                    })
-                    .catch(function(error){
-                        console.log(error);
-                        reject(error);
-                    });
-            });
-            return P;
-        }
+                    }
+                    resolve(retData);
+                })
+                .catch(function(error){
+                    console.log(error);
+                    reject(error);
+                });
+        });
+        return promise;
     };
 
 
     s3.checkFile = checkFile;
     s3.setAllow = setAllowList;
+    s3.imageCompress = imageCompress;
     s3.upload = uploadFileToUrl;
 });
 /**
