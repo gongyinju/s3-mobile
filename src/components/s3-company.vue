@@ -7,7 +7,7 @@
         <span class="flexCenter"></span>
         <i class="iconfont icon-qiehuan1 skin-color"></i>
       </div>
-      <mt-actionsheet :actions="actions" v-model="sheetVisible"></mt-actionsheet>
+      <mt-actionsheet :actions="branchCompany" v-model="sheetVisible"></mt-actionsheet>
     </div>
   </div>
 </template>
@@ -23,26 +23,15 @@
         default: function () {
           return []
         }
-      }
-    },
-    methods: {
-      changeCompany: function(e){
-        this.companyName =e.companyName;
+      },
+      companyName:{
+        type:String
       }
     },
     data() {
       return {
-        sheetVisible: false,
-        actions: [],
-        companyName:'切换分公司'
+        sheetVisible: false
       };
-    },
-    created(){
-      this.branchCompany.forEach((item,index)=> {
-       item.method = this.changeCompany;
-       item.name = item.companyName;
-       this.actions[index] = item;
-     })
     },
   };
 </script>

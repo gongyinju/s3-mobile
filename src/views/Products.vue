@@ -3,7 +3,7 @@
     <!--go-right=right-->
     <s3-header head-title="订货" go-back='true' ></s3-header>
     <s3-search></s3-search>
-    <s3-company :branch-company="branchCompany" > </s3-company>
+    <s3-company :branch-company="branchCompany"  :company-name="companyName"> </s3-company>
     <s3-list :list="products" :modules="modules" :icon="iconclass" :detail="detail"></s3-list>
   </div>
 </template>
@@ -22,7 +22,13 @@
         detail:'productDetail',
         iconclass:'icon-icon17',
         branchCompany:[],
+        companyName:'切换分公司'
       };
+    },
+    methods: {
+      changeCompany: function(e){
+        this.companyName =e.companyName;
+      }
     },
     created(){
       //获取产品列表
@@ -34,6 +40,10 @@
       this.$http('/getBranchCompanyInfo',{},'s3core')
         .then(res=>{
           this.branchCompany = res.branchCompany;
+          this.branchCompany.forEach((item,index)=> {
+            item.method = this.changeCompany;
+            item.name = item.companyName;
+          })
         })
     },
     components: {
