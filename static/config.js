@@ -10,7 +10,8 @@ config.modules = {};
 config.basic.companyName = "ABC有限公司电子供应链平台";
 config.basic.logo = "views/account/img/logo.png";
 config.basic.theme = "skinRed";
-
+//是否需要登陆
+config.basic.login = false;
 
 //PART II   DISPLAY
 config.display.products = {

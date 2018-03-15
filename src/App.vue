@@ -1,14 +1,16 @@
 <template>
   <div>
     <!--views-->
-    <div v-if="!showLogin  && !showFisrstlogin">
+    <div v-if="(!showLogin  && !showFisrstlogin) || !displayLogin">
       <div id="app">
         <router-view></router-view>
       </div>
       <s3-bottom :bottomlist="bottom" :selected = '$route.path' ></s3-bottom>
     </div>
-    <s3-login v-if="showLogin && !showFisrstlogin"></s3-login>
-    <s3-firstlogin v-if="!showLogin && showFisrstlogin"></s3-firstlogin>
+    <div v-if="displayLogin">
+      <s3-login v-if="showLogin && !showFisrstlogin"></s3-login>
+      <s3-firstlogin v-if="!showLogin && showFisrstlogin"></s3-firstlogin>
+    </div>
   </div>
 </template>
 
@@ -24,7 +26,8 @@
           {icon:'icon-shouye-copy-copy-copy',text:'首页',pathUrl:'/'},
           {icon:'icon-tuangou',text:'订货',pathUrl:'/products'},
           {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
-        ]
+        ],
+        displayLogin:true
       }
     },
     computed: {
@@ -41,6 +44,7 @@
       s3Firstlogin
     },
     created() {
+      this.displayLogin = config.basic.login;
     },
   }
 </script>

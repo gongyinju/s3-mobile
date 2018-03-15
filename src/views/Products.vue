@@ -32,6 +32,7 @@
       }
     },
     created(){
+      console.log(this.$router)
       //获取产品列表
       s3.ajax('/getPorductInfo',{},'s3core')
         .then(res=>{
