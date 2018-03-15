@@ -14,19 +14,8 @@ let routes = [
     },
   },
   {
-    path: '/login',
-    component: function (resolve) {
-      require(['@/views/Login'], resolve)
-    }
-  },
-  {
-    path: '/firstlogin',
-    component: function (resolve) {
-      require(['@/views/FirstLogin'], resolve)
-    }
-  },
-  {
     path: '/products',
+    name: 'products',
     component: function (resolve) {
       require(['@/views/Products'], resolve)
     }
@@ -40,12 +29,14 @@ let routes = [
   },
   {
     path: '/person',
+    name: 'products',
     component: function (resolve) {
       require(['@/views/Person'], resolve)
     }
   },
   {
     path: '/checklist',
+    name: 'products',
     component: function (resolve) {
       require(['@/views/CheckList'], resolve)
     }
@@ -74,11 +65,9 @@ router.beforeEach((to, from, next) => {
     if (store.state.isLogedIn){
       next();
     }else {
-      // 没有登录跳转到登录页面，登录成功之后再返回到之前请求的页面
-      next({
-        path : '/login',
-        query : {redirect : to.fullPath}
-      })
+      // 没有登录跳转到登录页面
+      that.$store.commit('userLogout');
+      that.$store.commit('userFirstLogout');
     }
   }else {
     // 进入路由前

@@ -6,8 +6,8 @@
       </div>
       <mt-button type="primary" size="large" class="loginBtn">登录</mt-button>-->
     <div class="container">
-      <img class="logo" alt="s3core" src="" />
-      <h1>Welcome</h1>
+      <img class="logo" alt="s3core" :src="images" />
+      <div>{{company}}</div>
       <form >
         <input type="text" placeholder="请输入用户名" v-model="loginName" />
         <input type="password" placeholder="请输入密码" v-model="password" />
@@ -27,11 +27,20 @@
   import store from '@/store'
 
   export default {
+    props:{
+      company: {
+        type: String,
+        default:'核心企业电子供应链平台'
+      },
+      images:{
+        type: String,
+        default:'http://img.hb.aicdn.com/b4e756dff556ef08277874acd970c6a14219290b3285e-5yoSex_fw658'
+      }
+    },
     data(){
       return{
         loginName:'',
         password:'',
-        company:'核心企业电子供应链平台',
         fullyear:'',
       }
     },
@@ -63,24 +72,27 @@
               let result = res;
               if (result.retCode === '200'){
                 //首次登陆
+                console.log(result.isFirstLogin)
                 if (result.isFirstLogin != "false"){
                   //修改状态
                   that.$store.commit('userLogin');
+                  that.$store.commit('userFirstLogin');
                   that.$store.commit('increment', {
                     user: {
                       userName: that.loginName
                     }
                   })
-                  that.$router.push('/firstlogin');
+//                  that.$router.push('/firstlogin');
                 }else{
                   //修改状态
                   that.$store.commit('userLogin');
+                  console.log(that.$store.state.isLogedIn)
                   that.$store.commit('increment', {
                     user: {
                       userName: that.loginName
                     }
                   })
-                  that.$router.push('/');
+//                  that.$router.push('/');
                 }
               }else{
                 MessageBox('提示', result.retMsg ||result.retmsg );
@@ -108,16 +120,12 @@
   .container img.logo {
     display: block;
     margin: 0 auto;
-    width: 60%;
-    padding: 70px 0px;
+    width: 100px;
+    padding: 60px 0 10px 0;
   }
-
-  .container h1 {
+  .container img.logo~div{
     text-align: center;
-    font-weight: 100;
-    font-size: 24px;
-    text-transform: uppercase;
-    letter-spacing: 10px;
+    margin : 16px  0 30px 0;
   }
 
   .container a {
@@ -170,7 +178,7 @@
     text-align: center;
     width: 100%;
     position: absolute;
-    bottom: 42px;
+    bottom:0;
   }
 
   .container div.signup p {

@@ -33,12 +33,12 @@
     },
     created(){
       //获取产品列表
-      this.$http('/getPorductInfo',{},'s3core')
+      s3.ajax('/getPorductInfo',{},'s3core')
         .then(res=>{
            this.products =  res.dataList;
         })
       //获取分公司列表
-      this.$http('/getBranchCompanyInfo',{},'s3core')
+      s3.ajax('/getBranchCompanyInfo',{},'s3core')
         .then(res=>{
           this.branchCompany = res.branchCompany;
           this.branchCompany.forEach((item,index)=> {

@@ -25,7 +25,12 @@ export default {
   userLogout (state) {
   	state.isLogedIn = false
   },
-
+  userFirstLogin (state) {
+    state.isFirstLogedIn = true
+  },
+  userFirstLogout (state) {
+    state.isFirstLogedIn = false
+  },
   increment (state,user){
     state.user = user
   }
