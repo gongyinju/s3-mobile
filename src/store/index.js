@@ -13,7 +13,7 @@ const store = new Vuex.Store({
     },
     page:{
       title:'',
-      header:true
+      backState:true
     },
     isFirstLogedIn:false,
     isLogedIn: false,

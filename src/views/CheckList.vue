@@ -1,7 +1,7 @@
 <template>
   <div class="checkList">
 
-    <s3-header head-title="审核" go-back='true' ></s3-header>
+    <!--<s3-header head-title="审核" go-back='true' ></s3-header>-->
     <anav></anav>
   </div>
 </template>

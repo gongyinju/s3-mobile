@@ -47,15 +47,15 @@
 </script>
 
 <style scoped>
-.detail{
-  font-size: 12px;
-  margin-top: 84px;
-}
-ul{
-  list-style: none;
-  margin: 0;
-  padding-left: 0;
-}
+  .detail{
+    font-size: 12px;
+    margin-top: 40px;
+  }
+  ul{
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
   .text-right{
     text-align: right;
   }
@@ -79,7 +79,6 @@ ul{
   }
   .detail-information,.detail-list,.detail-note{
     margin-bottom: 10px;
-    /*padding: 0 10px;*/
     border-top:1px solid #d9d9d9;
     border-bottom:1px solid #d9d9d9;
   }
@@ -92,15 +91,15 @@ ul{
     display: flex;
     flex-flow: row wrap;
   }
-.detail-information-list p>span{
-  -webkit-flex: 1;
-  flex: 1;
-}
-.detail-list-product p{
-  float: left;
-  width: 50%;
-}
-.detail-information-list p>span:nth-child(2){
-  text-align: right;
-}
+  .detail-information-list p>span{
+    -webkit-flex: 1;
+    flex: 1;
+  }
+  .detail-list-product p{
+    float: left;
+    width: 50%;
+  }
+  .detail-information-list p>span:nth-child(2){
+    text-align: right;
+  }
 </style>

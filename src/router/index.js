@@ -8,10 +8,18 @@ import Home from '@/views/Home'
 let routes = [
   {
     path: '/',
+    name: 'home',
     component: Home,
     meta : {
       requireAuth: true,
     },
+    beforeEnter(to, from, next) {
+      let  page ={
+        title: ''
+      }
+      store.commit('pageinfo', page)
+      next();
+    }
   },
   {
     path: '/products',
@@ -20,13 +28,11 @@ let routes = [
       require(['@/views/Products'], resolve)
     },
     beforeEnter(to, from, next) {
-      console.log(store.state.page);
-      store.commit('pageinfo', {
-        page: {
-          title: '订货',
-          customerId: '342134'
-        }
-      })
+      let page = {
+        title: '订货',
+        backState:false
+      }
+      store.commit('pageinfo', page)
       next();
     },
   },
@@ -35,6 +41,13 @@ let routes = [
     name: 'productDetail',
     component: function (resolve) {
       require(['@/views/ProductDetail'], resolve)
+    },
+    beforeEnter(to, from, next) {
+      let  page ={
+        title: '产品详情'
+      }
+      store.commit('pageinfo', page)
+      next();
     }
   },
   {
@@ -42,6 +55,13 @@ let routes = [
     name: 'products',
     component: function (resolve) {
       require(['@/views/Person'], resolve)
+    },
+    beforeEnter(to, from, next) {
+      let  page ={
+        title: '个人中心'
+      }
+      store.commit('pageinfo', page)
+      next();
     }
   },
   {
@@ -49,6 +69,13 @@ let routes = [
     name: 'products',
     component: function (resolve) {
       require(['@/views/CheckList'], resolve)
+    },
+    beforeEnter(to, from, next) {
+      let  page ={
+        title: '审核'
+      }
+      store.commit('pageinfo', page)
+      next();
     }
   },
 ]

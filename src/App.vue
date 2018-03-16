@@ -1,9 +1,9 @@
 <template>
   <div>
-
     <!--views-->
+    <!--{{pageinfo}}-->
     <div v-if="(!showLogin  && !showFisrstlogin) || !displayLogin">
-      <s3-header head-title="订货" go-back='true' v-if="!iswx"></s3-header>
+      <s3-header :head-title="pageinfo.title" :go-back='pageinfo.backState' v-if="!iswx && pageinfo.title"></s3-header>
       <div id="app">
         <router-view></router-view>
       </div>
@@ -31,6 +31,7 @@
           {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
         ],
         displayLogin:true,
+        iswx:true,
       }
     },
     computed: {
@@ -39,6 +40,9 @@
       },
       showFisrstlogin () {
         return this.$store.state.isFirstLogedIn
+      },
+      pageinfo () {
+        return this.$store.state.page
       }
     },
     components: {
@@ -49,6 +53,7 @@
     },
     created() {
       this.displayLogin = config.basic.login;
+      this.iswx = s3.isWeixin();
     },
   }
 </script>

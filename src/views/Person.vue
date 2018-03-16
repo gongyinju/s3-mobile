@@ -1,7 +1,7 @@
 <template>
   <div class="person">
     <!--go-right=right-->
-    <s3-header head-title="我的信息" go-back='true'  ></s3-header>
+    <!--<s3-header head-title="我的信息" go-back='true'  ></s3-header>-->
     <h2 >个人中心</h2>
   </div>
 </template>
