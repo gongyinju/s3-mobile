@@ -1,20 +1,23 @@
 <template>
   <div>
+
     <!--views-->
     <div v-if="(!showLogin  && !showFisrstlogin) || !displayLogin">
+      <s3-header head-title="订货" go-back='true' v-if="!iswx"></s3-header>
       <div id="app">
         <router-view></router-view>
       </div>
-      <s3-bottom :bottomlist="bottom" :selected = '$route.path' ></s3-bottom>
+      <s3-bottom :bottomlist="bottom" :selected = '$route.path' v-if="(!showLogin  && !showFisrstlogin) || !displayLogin"></s3-bottom>
     </div>
     <div v-if="displayLogin">
-      <s3-login v-if="showLogin && !showFisrstlogin"></s3-login>
+      <s3-login v-if="showLogin"></s3-login>
       <s3-firstlogin v-if="!showLogin && showFisrstlogin"></s3-firstlogin>
     </div>
   </div>
 </template>
 
 <script>
+  import s3Header from '@/components/s3-header.vue'
   import s3Login from '@/components/s3-login.vue'
   import s3Firstlogin from '@/components/s3-firstlogin.vue'
   import s3Bottom from './components/s3-bottom.vue'
@@ -27,7 +30,7 @@
           {icon:'icon-tuangou',text:'订货',pathUrl:'/products'},
           {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
         ],
-        displayLogin:true
+        displayLogin:true,
       }
     },
     computed: {
@@ -40,6 +43,7 @@
     },
     components: {
       s3Bottom,
+      s3Header,
       s3Login,
       s3Firstlogin
     },

@@ -33,5 +33,8 @@ export default {
   },
   increment (state,user){
     state.user = user
+  },
+  pageinfo (state,page){
+    state.page = page
   }
 }

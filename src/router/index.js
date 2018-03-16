@@ -18,7 +18,17 @@ let routes = [
     name: 'products',
     component: function (resolve) {
       require(['@/views/Products'], resolve)
-    }
+    },
+    beforeEnter(to, from, next) {
+      console.log(store.state.page);
+      store.commit('pageinfo', {
+        page: {
+          title: '订货',
+          customerId: '342134'
+        }
+      })
+      next();
+    },
   },
   {
     path: '/products/:userId',
@@ -58,21 +68,17 @@ router.beforeEach((to, from, next) => {
 
   // 在home路由中配置的meta
   if(to.meta.requireAuth){
-
-    console.log(store.state.user)
-    console.log(store.state.isLogedIn)
     // 判断是否登录
-    if (store.state.isLogedIn){
-      next();
-    }else {
+    if (!store.state.isLogedIn){
       // 没有登录跳转到登录页面
-      that.$store.commit('userLogout');
-      that.$store.commit('userFirstLogout');
+      store.commit('userLogout');
+      store.commit('userFirstLogout');
     }
+    next();
   }else {
     // 进入路由前
     console.log('导航开始，进入组件前，导航触发');
-    next()
+    next();
   }
 })
 
