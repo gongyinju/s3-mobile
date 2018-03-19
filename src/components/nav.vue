@@ -3,7 +3,6 @@
     <mt-navbar v-model="selected">
       <mt-tab-item id="1" @click="changeId()">option A</mt-tab-item>
       <mt-tab-item id="2" @click.stop.prevent="changeId">option B</mt-tab-item>
-      <mt-tab-item id="3" @click.stop.prevent="changeId">option C</mt-tab-item>
       <mt-tab-item id="4" @click.stop.prevent="changeId">
         <select name="" id="">
           <option value="111">fff</option>
@@ -11,13 +10,21 @@
           <option value="333">hhh</option>
         </select>
       </mt-tab-item>
+
+      <mt-tab-item id="3" @click.stop.prevent="changeId">
+        <div @click="popupVisible = true"> wwwwwwwwwwww</div>
+      </mt-tab-item>
+
     </mt-navbar>
+    <mt-popup v-model="popupVisible" popup-transition="popup-fade" :modal="false">
+      ...xxx
+    </mt-popup>
 
     <!-- tab-container -->
-    <mt-tab-container v-model="selected">
+    <!--<mt-tab-container v-model="selected">
       <mt-tab-container-item id="1">
         <mt-cell v-for="n in 1" :title="'content ' + n" is-link></mt-cell>
-      </mt-tab-container-item>
+      </mt-tab-container-item>-->
       <!--<mt-tab-container-item id="2">
         <mt-cell v-for="n in 2" :title="'content ' + n" />
       </mt-tab-container-item>
@@ -27,7 +34,7 @@
       <mt-tab-container-item id="4">
         <mt-cell v-for="n in 4" :title="'content ' + n" />
       </mt-tab-container-item>-->
-    </mt-tab-container>
+    <!--</mt-tab-container>-->
   </div>
 </template>
 
@@ -57,7 +64,8 @@
         return {
           selected: '1',
           title:'',
-          showlist:[]
+          showlist:[],
+          popupVisible:false
         };
       }
     }

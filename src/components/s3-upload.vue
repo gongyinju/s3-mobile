@@ -3,9 +3,8 @@
     <div class="file_box">
       <input type="file" v-on:change="upload">点击上传
     </div>
-    <!--v-on:increment="incrementTotal"-->
-    {{fileName}}
-
+    <span class="item-name">{{fileName}}</span>
+    <mt-progress v-if="showProgress && slot" ></mt-progress>
   </div>
 </template>
 <script>
@@ -16,22 +15,28 @@
       uploadURL: {
         type: String,
         default: 'https://api.github.com'
+      },
+      showProgress:{
+        type: Boolean,
+        default: true
       }
     },
     data () {
       return {
-        fileName: ''
+        fileName: '',
+        slot:false
       }
     },
     methods: {
       upload(e) {
-        console.log(this.uploadURL)
+        console.log(this.uploadURL);
+        this.slot=true;
         var fileupload = e.target.files[0];
         this.fileName = fileupload.name;
-        console.log(fileupload.name)
-        var a = s3.upload(fileupload,{},'https://www.test.com/api/upload');
+        var a = s3.upload('https://www.test.com/api/upload',fileupload);
         a.then(res => {
           console.log(res);
+          this.slot=false;
           // 将参数传回父组件中的回调函数
           this.$emit('uploadstatus',res)
 
@@ -68,5 +73,16 @@
     background: #66b1ff;
     border-color: #66b1ff;
     color: #fff;
+  }
+  .item-name {
+    color: #606266;
+    display: block;
+    margin-right: 40px;
+    overflow: hidden;
+    padding-left: 4px;
+    text-overflow: ellipsis;
+    transition: color .3s;
+    white-space: nowrap;
+    transition: all .5s cubic-bezier(.55,0,.1,1);
   }
 </style>
