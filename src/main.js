@@ -33,9 +33,7 @@ const loader = function (resolve, url) {
 const dynamicRouter = function (router, outerRouter) {
   try {
     outerRouter.forEach(function (item) {
-      // let path = '/' + item['path']
       let path = `/${item['path']}`
-
       router.addRoutes([
         {
           path: path,

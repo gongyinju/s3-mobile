@@ -1,19 +1,20 @@
 <template>
   <div class="checkList">
-    <!--<anav></anav>-->
+    <anav></anav>
     <!--<s3-date></s3-date>-->
-    <s3-upload ref="upload" @sendFile="sendFile" @deleteFile="deleteFile" :fileLoading="fileLoading" :filelist="filelist"></s3-upload>
+    <!--<s3-upload ref="upload" @sendFile="sendFile" @deleteFile="deleteFile" :fileLoading="fileLoading" :filelist="filelist"></s3-upload>-->
   </div>
 </template>
 
 <script>
-//  import anav from '@/components/nav.vue'
+  import anav from '@/components/nav.vue'
 //  import s3Date from '@/components/s3-date.vue'
-  import s3Upload from '@/components/s3-upload.vue'
+//  import s3Upload from '@/components/s3-upload.vue'
 
   export default {
     components: {
-      s3Upload,
+//      s3Upload,
+      anav
     },
 
     data () {
@@ -24,7 +25,7 @@
         filelist:[]
       }
     },
-    methods:{
+   /* methods:{
       //后台请求上传
       sendFile:function (file){
         let promise = s3.upload('https://www.test.com/api/upload',file,this.$refs.upload.onprogress,this.postData);
@@ -50,7 +51,7 @@
 
 
 
-    },
+    },*/
     created(){
 
 
@@ -62,6 +63,6 @@
 
 <style scoped>
 .checkList{
-  padding-top: 86px!important;
+  padding-top: 46px!important;
 }
 </style>

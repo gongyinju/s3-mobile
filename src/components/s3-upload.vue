@@ -32,13 +32,13 @@
   </div>
 </template>
 <script>
-  Mock.mock('https://www.test.com/api/upload',{});
+//  Mock.mock('https://www.test.com/api/upload',{});
 
   export default {
     props: {
       uploadURL: {
         type: String,
-        default: 'https://api.github.com'
+        default: 'http://localhost:8080/mocks'
       },
       fileLoading: {
         type: String,

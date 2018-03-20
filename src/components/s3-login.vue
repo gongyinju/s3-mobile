@@ -72,7 +72,6 @@
               let result = res;
               if (result.retCode === '200'){
                 //首次登陆
-                console.log(result.isFirstLogin)
                 if (result.isFirstLogin != "false"){
                   //修改状态
                   that.$store.commit('userLogin');
@@ -82,17 +81,14 @@
                       userName: that.loginName
                     }
                   })
-//                  that.$router.push('/firstlogin');
                 }else{
                   //修改状态
                   that.$store.commit('userLogin');
-                  console.log(that.$store.state.isLogedIn)
                   that.$store.commit('increment', {
                     user: {
                       userName: that.loginName
                     }
                   })
-//                  that.$router.push('/');
                 }
               }else{
                 MessageBox('提示', result.retMsg ||result.retmsg );
