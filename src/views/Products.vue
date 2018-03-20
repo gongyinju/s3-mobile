@@ -1,6 +1,6 @@
 <template>
   <div>
-    <s3-search></s3-search>
+    <s3-search @keySearch="keySearch"></s3-search>
     <s3-company :branch-company="branchCompany"  :company-name="companyName"> </s3-company>
     <!--列表访问详情为传入的modules加该列表的id-->
     <s3-list :list="products" :modules="modules" :icon="iconclass" :detail="detail" ></s3-list>
@@ -27,6 +27,10 @@
     methods: {
       changeCompany: function(e){
         this.companyName =e.companyName;
+      },
+      //搜索
+      keySearch : function (searchVal) {
+        console.log(searchVal)
       }
     },
     created(){

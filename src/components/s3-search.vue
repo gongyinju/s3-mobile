@@ -1,6 +1,6 @@
 <template>
   <div class="search-css">
-    <mt-search v-model="value"></mt-search>
+    <mt-search v-model="value" @click.native="seatch" @keyup.enter.native="seatch"></mt-search>
   </div>
 
 </template>
@@ -14,9 +14,9 @@
       }
 
     },
-    method:{
-      a:function () {
-//        this.$emit('update:foo', newValue)
+    methods:{
+      seatch:function () {
+        this.$emit('keySearch', this.value)
       }
     }
   }
