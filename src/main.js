@@ -51,10 +51,8 @@ const dynamicRouter = function (router, outerRouter) {
 }
 
 // 向服务器请求config配置
-axios.get('http://localhost:8080/mocks/router').then(function (result) {
-  if(result.data.status == '000'){
-    dynamicRouter(router, result.data.data)
-  }
+s3.ajax('http://localhost:8080/mocks/router').then(function (result) {
+    dynamicRouter(router, result)
     /* eslint-disable no-new */
   new Vue({
     el: '#app',

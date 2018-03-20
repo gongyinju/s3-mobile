@@ -88,7 +88,8 @@ class EmitRouterPlugin {
 
         self.router.push({
           path: self.module + route.path,
-          url: self.url+name
+          url: self.url+name,
+          name: route['name'] || '组件'
         })
 
       })
