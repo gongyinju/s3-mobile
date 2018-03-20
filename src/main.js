@@ -50,10 +50,15 @@ const dynamicRouter = function (router, outerRouter) {
   }
 }
 
+//set base URL
+if(config.basic['baseUrl'])
+  s3.setBaseURL(config.basic.baseUrl)
+
 // 向服务器请求config配置
-s3.ajax('http://localhost:8080/mocks/router').then(function (result) {
+s3.ajax('/config/router').then(function (result) {
+  if(result)
     dynamicRouter(router, result)
-    /* eslint-disable no-new */
+  /* eslint-disable no-new */
   new Vue({
     el: '#app',
     router,
