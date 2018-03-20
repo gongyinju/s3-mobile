@@ -1,10 +1,34 @@
 <template>
-  <div >
-    <div class="file_box">
-      <input type="file" v-on:change="upload">点击上传
+  <div class="s3-fileUpload">
+
+    <!--历史附件-->
+    <ul class="upload-list upload-list--picture-card">
+      <li tabindex="0" class="upload-list__item " v-for="file in filelist">
+        <a :href="file.annexUrl" download class=""></a>
+        <span>{{file.annexName}}</span>
+        <i  @click="deleteFile(file.annexUrl)">删除</i>
+      </li>
+    </ul>
+    <div class="aboutFile">
+      <div tabindex="0" class="upload upload--picture-card">
+        <i class="icon-plus">+</i>
+        <input type="file" name="file" class="upload--input" @change="upload">
+      </div>
+
+      <div class="fileReader">
+        <span v-if="fileupload && !preview">{{fileupload.name}}</span>
+        <img  v-if="fileupload && preview" :src="imageSrc" alt="">
+        <span v-if="!fileupload">添加附件内容</span>
+      </div>
+
+      <div v-if="fileupload" class="fileLoading">
+        <span>{{fileLoading}}</span>
+      </div>
     </div>
-    <span class="item-name">{{fileName}}</span>
-    <mt-progress v-if="showProgress && slot" ></mt-progress>
+    <!--v-if="progressShow"-->
+    <mt-progress :value="progress">
+      <!--<div slot="end">{{Math.ceil(precent)}}%</div>-->
+    </mt-progress>
   </div>
 </template>
 <script>
@@ -16,73 +40,125 @@
         type: String,
         default: 'https://api.github.com'
       },
-      showProgress:{
-        type: Boolean,
-        default: true
+      fileLoading: {
+        type: String,
+        default: '上传中...'
+      },
+      filelist:{
+        type:Array
       }
     },
     data () {
       return {
-        fileName: '',
-        slot:false
+        fileupload: '',
+        imageSrc:'',
+        progressShow:false,
+        progress:0
       }
     },
     methods: {
-      upload(e) {
-        console.log(this.uploadURL);
-        this.slot=true;
-        var fileupload = e.target.files[0];
-        this.fileName = fileupload.name;
-        var a = s3.upload('https://www.test.com/api/upload',fileupload);
-        a.then(res => {
-          console.log(res);
-          this.slot=false;
-          // 将参数传回父组件中的回调函数
-          this.$emit('uploadstatus',res)
 
-        })
+      upload(e) {
+        var that = this;
+        var fileupload = e.target.files[0];
+        this.fileupload = fileupload;
+        let fileReader = new FileReader();
+        if(this.fileupload.type.indexOf("image")>-1){
+          this.preview = true;
+          fileReader.readAsDataURL(this.fileupload)
+          fileReader.onload = function(){
+            that.imageSrc = this.result;
+          }
+        }
+        if(this.fileupload.name.lastIndexOf(".")>-1){
+          let res = s3.checkFile(this.fileupload);
+          if (res.status =='400'){
+            this.fileLoading = res.retMsg;
+          }else{
+            this.$emit('sendFile',this.fileupload)
+          }
+        }
       },
+      //删除上传文件
+      deleteFile(url){
+        // 子组件中触发父组件方法deleteFile并传值url
+        this.$emit('deleteFile', url)
+      },
+      //显示进度条
+      onprogress (event) {
+        console.log(event)
+          var complete = Math.floor(event.loaded / event.total * 100);
+          this.progressShow = true;
+          this.progress = complete;
+       /* if(this.progress==100){
+          this.fileLoading = '上传成功!';
+        }*/
+      },
+
+
+
+    },
+    created(){
+//      s3.setAllow(['txt']);
+
     }
   }
 </script>
 <style>
-
-  .file_box {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
+  .s3-fileUpload .upload-list--picture-card {
     margin: 0;
-    transition: .1s;
-    text-indent: 0;
-    line-height: 20px;
-    padding: 6px 16px;
-    font-size: 12px;
-    border-radius: 3px;
-    color: #fff;
-    background-color: #409eff;
-    border-color: #409eff;
+    display: inline;
+    vertical-align: top;
+    padding: 0;
+    list-style: none;
   }
-  .file_box input {
-    position: absolute;
-    font-size: 100px;
-    right: 0;
-    top: 0;
+  .s3-fileUpload .upload--picture-card {
+    position: relative;
+    background-color: #fbfdff;
+    border: 1px dashed #c0ccda;
+    border-radius: 6px;
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    line-height: 96px;
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    outline: none;
+  }
+  .s3-fileUpload .upload--picture-card i {
+    font-size: 28px;
+    color: #8c939d;
+    font-style: normal;
+  }
+  .s3-fileUpload .upload--input {
     opacity: 0;
+    top: 0;left: 0;
+    position: absolute;
+    width: 100px;
+    height: 100px;
   }
-  .file_box:hover {
-    background: #66b1ff;
-    border-color: #66b1ff;
-    color: #fff;
-  }
-  .item-name {
-    color: #606266;
-    display: block;
-    margin-right: 40px;
+  .s3-fileUpload .aboutFile{
+    height: 100px;
     overflow: hidden;
-    padding-left: 4px;
-    text-overflow: ellipsis;
-    transition: color .3s;
-    white-space: nowrap;
-    transition: all .5s cubic-bezier(.55,0,.1,1);
   }
+  .s3-fileUpload .aboutFile>div{
+    float: left;
+  }
+  .s3-fileUpload .fileReader{
+    height: 100%;
+    line-height: 100px;
+    margin-left: 10px;
+  }
+  .s3-fileUpload .fileReader>img{
+    width: 100px;
+    height: 100px;
+  }
+  .s3-fileUpload .fileLoading{
+    height: 100%;
+    line-height: 100px;
+    margin-left: 10px;
+  }
+
 </style>
