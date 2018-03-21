@@ -1,8 +1,7 @@
 <template>
   <div >
     <mt-header :title="headTitle" fixed>
-      <!--@click="$router.go(-1)"-->
-      <router-link to="/" v-if="goBack" slot="left">
+      <router-link  v-if="goBack" slot="left" :to="goBackUrl" >
         <mt-button icon="back" ></mt-button>
       </router-link>
       <!--<mt-button  icon="more" slot="right"></mt-button>-->
@@ -15,7 +14,17 @@
 
 <script>
   export default {
-    props: ['headTitle', 'goBack','goRight','isFixed'],
+    props: {
+      headTitle:{},
+      goBack:{
+        type: Boolean,
+      },
+      goBackUrl:{
+        type: String,
+        default:'/'
+      },
+      goRight:{},
+    },
     data(){
       return{
       };

@@ -30,7 +30,8 @@ let routes = [
     beforeEnter(to, from, next) {
       let page = {
         title: '订货',
-        backState:false
+        backState:true,
+        backUrl:'/person'
       }
       store.commit('pageinfo', page)
       next();
@@ -44,7 +45,7 @@ let routes = [
     },
     beforeEnter(to, from, next) {
       let  page ={
-        title: '产品详情'
+        title: '产品详情',
       }
       store.commit('pageinfo', page)
       next();

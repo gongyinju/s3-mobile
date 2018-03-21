@@ -3,7 +3,8 @@
     <!--views-->
     <!--{{pageinfo}}-->
     <div v-if="(!showLogin  && !showFisrstlogin) || !displayLogin">
-      <s3-header :head-title="pageinfo.title" :go-back='pageinfo.backState' v-if="!iswx && pageinfo.title"></s3-header>
+      <!--go-back:是否有返回，go-back-url:返回地址默认为首页-->
+      <s3-header :head-title="pageinfo.title" :go-back='pageinfo.backState' :go-back-url="pageinfo.backUrl"  v-if="!iswx && pageinfo.title"></s3-header>
       <div id="app">
         <router-view></router-view>
       </div>

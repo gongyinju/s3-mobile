@@ -7,7 +7,6 @@
   </div>
 </template>
 <script>
-  import s3Header from '@/components/s3-header.vue'
   import s3Search from '@/components/s3-search.vue'
   import s3Company from '@/components/s3-company.vue'
   import s3List from '@/components/s3-list.vue'
@@ -50,7 +49,6 @@
         })
     },
     components: {
-      s3Header,
       s3Search,
       s3Company,
       s3List

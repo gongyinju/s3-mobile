@@ -1,9 +1,8 @@
 <template>
   <div>
     <s3-banner :images = 'images'></s3-banner>
-    <div id="grid">
-      <s3-functionpanel :modules="gridlist" :otherModules="otherModules"></s3-functionpanel>
-    </div>
+    <s3-functionpanel :modules="gridlist" :otherModules="otherModules"></s3-functionpanel>
+
   </div>
 </template>
 <script>
@@ -40,25 +39,5 @@
 </script>
 
 <style >
-  #grid ul{
-    width:100%;
-    list-style: none;
-    overflow: hidden;
-    padding: 0;
-    text-align: center;
-  }
-  #grid .iconfont{
-    font-size: 24px!important;
-  }
-  #grid ul li{
-    width:33.333333333%;
-    padding: 18px 0;
-    float: left;
-  }
-  #grid ul li .iconfont{
-    color:#26a2ff;
-  }
-  #grid ul li p{
-    font-size: 14px;
-  }
+
 </style>
