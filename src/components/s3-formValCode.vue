@@ -1,6 +1,5 @@
 <template>
   <div class='s3-changePhone'>
-    <div class='changePhone-title '>请输入新手机号</div>
 
     <div class='formBox'>
       <div class="sendCode">
@@ -101,12 +100,6 @@
 </script>
 
 <style>
-
-  .s3-changePhone .changePhone-title {
-    padding: 1.6rem 1.6rem 1.2rem;
-    margin: auto;
-    background: #f2f2f2;
-  }
   .s3-changePhone .formBox{
     position: relative;
   }

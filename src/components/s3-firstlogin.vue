@@ -5,12 +5,14 @@
       <p>并修改密码</p>
     </div>
     <div class="formBox">
-      <div class="sendCode">
+      <!--<div class="sendCode">
         <em>|</em>
         <button @click="getValidateCode(phone)" class="skin-color" :disabled="countingDown || !isPhoneValid">{{getCodeText}}</button>
       </div>
       <mt-field label="绑定手机" placeholder="输入你的手机号" type="number" v-model.trim="phone" class="phone"></mt-field>
       <mt-field label="校验码" placeholder="输入你的手机效验码" type="number" v-model.trim="validatecode"></mt-field>
+      -->
+      <s3-formvalcode></s3-formvalcode>
       <mt-field label="旧密码" placeholder="请输入你的旧密码" type="password" v-model.trim="oldPassword"></mt-field>
       <mt-field label="新密码" placeholder="请输入你的新密码" type="password" v-model.trim="newPassword"></mt-field>
       <mt-field label="确认密码" placeholder="请再次确认您的新密码" type="password" v-model.trim="repeatPassword"></mt-field>
@@ -19,10 +21,7 @@
     <div class="buttonBox">
       <mt-button type="primary" size="large" class="loginBtn" @click="goHome">确认</mt-button>
     </div>
-    <!--验证错误-->
-    <div class="box_error2 " v-if="showTip">
-      <div>短信验证码以向您的手机发送，请在输入框内填入您收到的验证码！</div>
-    </div>
+
     <div class="error" v-if="phone && !isPhoneValid">
       <span>请输入正确手机号 </span><i class="ion-alert-circled"></i>
     </div>
@@ -40,8 +39,11 @@
 <script>
 
   import { MessageBox } from 'mint-ui';
-  const TIME_COUNT = 60;
+  import s3Formvalcode from '@/components/s3-formValCode.vue'
+
+
   export default {
+    components: {s3Formvalcode},
     data(){
       return{
         phone:null,
@@ -49,11 +51,6 @@
         oldPassword:'',
         newPassword:'',
         repeatPassword:'',
-        getCodeText:'获取验证码',
-        showTip:false,
-        countingDown:false,
-        timer: null,
-        count: '',
       }
     },
     computed: {
@@ -70,41 +67,6 @@
       goHome: function() {
         this.$store.commit('userFirstLogin',false);
       },
-      getValidateCode:function (phone,loginName) {
-        //ajax请求
-        var param = {
-          mobile:phone,
-          appid:'s3core'
-        }
-        if(loginName)
-          param.loginName = loginName;
-        /*var promise =s3.ajax('/getValidateCode',param,'userManage');
-        promise.then(function(result){
-          if(result.retCode !== "200"){
-            MessageBox('提示', result.retMsg||"您的账号暂不能使用忘记密码功能，请联系企业咨询!");
-            this.showTip = false;
-          }else{
-            this.showTip = true;
-          }
-        })*/
-        //点击之后 倒计时
-        if (!this.timer) {
-          this.count = TIME_COUNT;
-          this.countingDown = true;
-          this.timer = setInterval(() => {
-            if (this.count > 0 && this.count <= TIME_COUNT) {
-              this.count--;
-              this.getCodeText = `请等待${this.count}s`;
-            } else {
-              clearInterval(this.timer);
-              this.timer = null;
-              this.getCodeText = "获取验证码";
-              this.countingDown = false;
-            }
-          }, 1000)
-        }
-
-      }
     }
   }
 </script>
@@ -125,21 +87,6 @@
   .s3-firstLogin .formBox .mint-cell-wrapper input::-webkit-input-placeholder {
     color: #dedede;
   }
-  .s3-firstLogin .formBox .sendCode {
-    width: 100px;
-    position: absolute;
-    z-index: 1;
-    right: 17px;top: 8px;
-    font-size: 20px;
-  }
-  .s3-firstLogin .formBox .sendCode em{
-    color: #cecece;
-    font-style: normal;
-  }
-  .s3-firstLogin .formBox .sendCode button{
-    background: transparent;
-    border: none;
-  }
   .s3-firstLogin .buttonBox{
     padding: 2rem 1.6rem 1.2rem;
   }
@@ -155,8 +102,5 @@
     background: #ffb499;
     color: #fff;
     border-radius: 4px;
-  }
-  .skin-color{
-    color: #26a2ff;
   }
 </style>

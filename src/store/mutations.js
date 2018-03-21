@@ -27,7 +27,7 @@ export default {
     state.currentUser = null
   },
   userFirstLogin (state,firstLoginFlag) {
-    state.isFirstLogedIn = true
+    state.isFirstLogedIn = firstLoginFlag
   },
   pageinfo (state,page){
     state.page = page
