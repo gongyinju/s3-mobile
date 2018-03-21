@@ -2,7 +2,7 @@
   <div>
     <!--views-->
     <!--{{pageinfo}}-->
-    <div v-if="!showLogin">
+    <div v-show="!showLogin || !displayLogin">
       <!--go-back:是否有返回，go-back-url:返回地址默认为首页-->
       <s3-header :head-title="pageinfo.title" :go-back='pageinfo.backState' :go-back-url="pageinfo.backUrl"  v-if="!iswx && pageinfo.title"></s3-header>
       <div id="app">
@@ -11,10 +11,9 @@
       <s3-bottom :bottomlist="bottom" :selected = '$route.path'></s3-bottom>
     </div>
 
-
     <div v-if="displayLogin">
-      <s3-login v-if="showLogin" :appid="appid" :logo="logo" :company="company"></s3-login>
-      <s3-firstlogin v-if="showFisrstlogin"></s3-firstlogin>
+      <s3-login v-show="showLogin" :appid="appid" :logo="logo" :company="company"></s3-login>
+      <s3-firstlogin v-show="showFisrstlogin"></s3-firstlogin>
     </div>
   </div>
 </template>
