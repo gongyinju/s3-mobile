@@ -2,17 +2,19 @@
   <div>
     <!--views-->
     <!--{{pageinfo}}-->
-    <div v-if="(!showLogin  && !showFisrstlogin) || !displayLogin">
+    <div v-if="!showLogin">
       <!--go-back:是否有返回，go-back-url:返回地址默认为首页-->
       <s3-header :head-title="pageinfo.title" :go-back='pageinfo.backState' :go-back-url="pageinfo.backUrl"  v-if="!iswx && pageinfo.title"></s3-header>
       <div id="app">
         <router-view></router-view>
       </div>
-      <s3-bottom :bottomlist="bottom" :selected = '$route.path' v-if="(!showLogin  && !showFisrstlogin) || !displayLogin"></s3-bottom>
+      <s3-bottom :bottomlist="bottom" :selected = '$route.path'></s3-bottom>
     </div>
+
+
     <div v-if="displayLogin">
       <s3-login v-if="showLogin" :appid="appid" :logo="logo" :company="company"></s3-login>
-      <s3-firstlogin v-if="!showLogin && showFisrstlogin"></s3-firstlogin>
+      <s3-firstlogin v-if="showFisrstlogin"></s3-firstlogin>
     </div>
   </div>
 </template>
@@ -31,8 +33,6 @@
           {icon:'icon-tuangou',text:'订货',pathUrl:'/products'},
           {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
         ],
-        displayLogin: true,
-        iswx: true,
         appid: config.basic.custid,
         company: config.basic.companyName,
         logo: config.basic.logo
@@ -47,18 +47,20 @@
       },
       pageinfo () {
         return this.$store.state.page
-      }
+      },
+      displayLogin () {
+        return config.basic.login
+      },
+      iswx () {
+        return s3.isWeixin()
+      } 
     },
     components: {
       s3Bottom,
       s3Header,
       s3Login,
       s3Firstlogin
-    },
-    created() {
-      this.displayLogin = config.basic.login;
-      this.iswx = s3.isWeixin();
-    },
+    }
   }
 </script>
 

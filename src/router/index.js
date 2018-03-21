@@ -53,7 +53,7 @@ let routes = [
   },
   {
     path: '/person',
-    name: 'products',
+    name: 'Person',
     component: function (resolve) {
       require(['@/views/Person'], resolve)
     },
@@ -67,7 +67,7 @@ let routes = [
   },
   {
     path: '/checklist',
-    name: 'products',
+    name: 'checklist',
     component: function (resolve) {
       require(['@/views/CheckList'], resolve)
     },

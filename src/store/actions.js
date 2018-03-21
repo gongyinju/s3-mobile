@@ -5,6 +5,7 @@ export default {
 				context.commit('userLogout')
 			} else {
 				let user = result.user
+                context.commit('userLogin')
 				context.commit('setCurrentUser',user)
  				if(user.UserEntityroles){
  					let role = user.UserEntityroles[0]

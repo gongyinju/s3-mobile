@@ -1,27 +1,27 @@
 <template>
-  <transition enter-active-class="slideInUp" enter-leave-class="slideOutDown" mode = "out-in">
-  <div  class="loginBox">
-      <!--<div>
-        <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
-        <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
-      </div>
-      <mt-button type="primary" size="large" class="loginBtn">登录</mt-button>-->
-    <div class="container">
-      <img class="logo" alt="s3core" :src="logo" />
-      <div>{{company}}</div>
-      <form >
-        <input type="text" placeholder="请输入用户名" v-model="loginName" />
-        <input type="password" placeholder="请输入密码" v-model="password" />
-        <a href="#">忘记密码?</a>
-        <mt-button type="primary" size="large" class="loginBtn" @click="doLogin">登录</mt-button>
-      </form>
+  <transition class="animated" enter-active-class="slideInUp" enter-leave-class="slideOutDown" mode = "out-in">
+    <div  class="loginBox">
+        <!--<div>
+          <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
+          <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
+        </div>
+        <mt-button type="primary" size="large" class="loginBtn">登录</mt-button>-->
+      <div class="container">
+        <img class="logo" alt="s3core" :src="logo" />
+        <div>{{company}}</div>
+        <form >
+          <input type="text" placeholder="请输入用户名" v-model="loginName" />
+          <input type="password" placeholder="请输入密码" v-model="password" />
+          <a href="#">忘记密码?</a>
+          <mt-button type="primary" size="large" class="loginBtn" @click="doLogin">登录</mt-button>
+        </form>
 
-      <div class="signup">
-        <p><span>{{fullyear}}</span> <span >{{company}}</span>版权所有</p>
+        <div class="signup">
+          <p><span>{{fullyear}}</span> <span >{{company}}</span>版权所有</p>
+        </div>
       </div>
     </div>
-  </div>
-</transition>
+  </transition>
 </template>
 
 <script>
