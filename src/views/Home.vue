@@ -2,7 +2,7 @@
   <div>
     <s3-banner :images = 'images'></s3-banner>
     <s3-functionpanel :modules="gridlist" :otherModules="otherModules"></s3-functionpanel>
-
+    <mt-button></mt-button>
   </div>
 </template>
 <script>

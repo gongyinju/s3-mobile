@@ -11,7 +11,7 @@ const store = new Vuex.Store({
       title:'',
       backState:true
     },
-    isFirstLogedIn:false,
+    isFirstLogedIn:true,
     isLogedIn: false,
     currentUser: null, // 当前登录用户
     roles: null, // 当前用户的所有角色

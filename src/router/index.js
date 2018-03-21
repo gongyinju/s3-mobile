@@ -99,8 +99,7 @@ router.beforeEach((to, from, next) => {
     // 判断是否登录
     if (!store.state.isLogedIn){
       // 没有登录跳转到登录页面
-      store.commit('userLogout');
-      store.commit('userFirstLogout');
+      store.commit('userLogout')
     }
   }
   next();

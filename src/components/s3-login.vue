@@ -46,12 +46,13 @@ export default {
   data(){
     return{
       loginName:'',
-      password:'',
-      fullyear:'',
+      password:''
     }
   },
-  created(){
-    this.fullyear = new Date().getFullYear();
+  computed: {
+    fullyear () {
+      return new Date().getFullYear()
+    }
   },
   methods: {
     doLogin () {
@@ -97,13 +98,11 @@ export default {
             let firstLoginFlag = false
             if(result.isFirstLogin === 'false')
               firstLoginFlag = true
-            self.$store.commit('userLogin');
-            self.$store.commit('userFirstLogin',firstLoginFlag);
-            self.$store.commit('setCurrentUser', {
-              user: {loginName: self.loginName}
-            })
+            self.$store.commit('userLogin')
+            self.$store.commit('userFirstLogin',firstLoginFlag)
+            self.$store.dispatch('getUserState')
         } else {
-          MessageBox('提示', result.retMsg ||result.retmsg );
+          MessageBox('提示', result.retMsg ||result.retmsg )
         }
       })
       .catch(error => {

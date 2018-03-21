@@ -79,7 +79,10 @@ s3.ajax('/config/router',{},appid).then(function (result) {
     router,
     store,
     components: { App },
-    template: '<App/>'
+    template: '<App/>',
+    mounted () {
+      store.dispatch('getUserState',appid)
+    }
   })
 }, function (error) {
   new Vue({

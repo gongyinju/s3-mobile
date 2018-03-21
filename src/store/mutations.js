@@ -24,6 +24,7 @@ export default {
   },
   userLogout (state) {
   	state.isLogedIn = false
+    state.currentUser = null
   },
   userFirstLogin (state,firstLoginFlag) {
     state.isFirstLogedIn = true
