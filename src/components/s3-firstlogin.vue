@@ -5,25 +5,14 @@
       <p>并修改密码</p>
     </div>
     <div class="formBox">
-      <!--<div class="sendCode">
-        <em>|</em>
-        <button @click="getValidateCode(phone)" class="skin-color" :disabled="countingDown || !isPhoneValid">{{getCodeText}}</button>
-      </div>
-      <mt-field label="绑定手机" placeholder="输入你的手机号" type="number" v-model.trim="phone" class="phone"></mt-field>
-      <mt-field label="校验码" placeholder="输入你的手机效验码" type="number" v-model.trim="validatecode"></mt-field>
-      -->
-      <s3-formvalcode></s3-formvalcode>
+      <s3-formvalcode ref="formvalcode"></s3-formvalcode>
       <mt-field label="旧密码" placeholder="请输入你的旧密码" type="password" v-model.trim="oldPassword"></mt-field>
       <mt-field label="新密码" placeholder="请输入你的新密码" type="password" v-model.trim="newPassword"></mt-field>
       <mt-field label="确认密码" placeholder="请再次确认您的新密码" type="password" v-model.trim="repeatPassword"></mt-field>
     </div>
     <!--{{user.user.userName}}-->
     <div class="buttonBox">
-      <mt-button type="primary" size="large" class="loginBtn" @click="goHome">确认</mt-button>
-    </div>
-
-    <div class="error" v-if="phone && !isPhoneValid">
-      <span>请输入正确手机号 </span><i class="ion-alert-circled"></i>
+      <mt-button type="primary" size="large" class="loginBtn" @click="goHome" >确认</mt-button>
     </div>
 
 
@@ -46,7 +35,6 @@
     components: {s3Formvalcode},
     data(){
       return{
-        phone:null,
         validatecode:null,
         oldPassword:'',
         newPassword:'',
@@ -58,15 +46,16 @@
       user () {
         return this.$store.state.user
       },
-      //手机号验证
-      isPhoneValid() {
-        return /^1[3|5|7|8][0-9]\d{8}$/.test(this.phone);
-      }
+
     },
     methods: {
       goHome: function() {
+        //获取手机号和验证码
+        console.log(this.$refs.formvalcode.phone);
+        console.log(this.$refs.formvalcode.validatecode);
         this.$store.commit('userFirstLogin',false);
       },
+
     }
   }
 </script>
