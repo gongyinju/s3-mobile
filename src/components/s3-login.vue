@@ -1,4 +1,5 @@
 <template>
+  <transition enter-active-class="slideInUp" enter-leave-class="slideOutDown" mode = "out-in">
   <div  class="loginBox">
       <!--<div>
         <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
@@ -6,13 +7,13 @@
       </div>
       <mt-button type="primary" size="large" class="loginBtn">登录</mt-button>-->
     <div class="container">
-      <img class="logo" alt="s3core" :src="images" />
+      <img class="logo" alt="s3core" :src="logo" />
       <div>{{company}}</div>
       <form >
         <input type="text" placeholder="请输入用户名" v-model="loginName" />
         <input type="password" placeholder="请输入密码" v-model="password" />
         <a href="#">忘记密码?</a>
-        <mt-button type="primary" size="large" class="loginBtn" @click="submit">登录</mt-button>
+        <mt-button type="primary" size="large" class="loginBtn" @click="doLogin">登录</mt-button>
       </form>
 
       <div class="signup">
@@ -20,89 +21,97 @@
       </div>
     </div>
   </div>
+</transition>
 </template>
 
 <script>
-  import { MessageBox } from 'mint-ui';
-  import store from '@/store'
+import { MessageBox } from 'mint-ui';
+import store from '@/store'
+export default {
+  props:{
+    appid: {
+      type: String,
+      default: 's3Core',
+      required: true
+    },
+    company: {
+      type: String,
+      default:'核心企业电子供应链平台'
+    },
+    logo:{
+      type: String,
+      default:'http://file.gongyinju.com/group1/M00/00/5B/bQYdm1mH6MCARxkxAABfhUPd7bM324.jpg'
+    }
+  },
+  data(){
+    return{
+      loginName:'',
+      password:'',
+      fullyear:'',
+    }
+  },
+  created(){
+    this.fullyear = new Date().getFullYear();
+  },
+  methods: {
+    doLogin () {
+      let self = this
 
-  export default {
-    props:{
-      company: {
-        type: String,
-        default:'核心企业电子供应链平台'
-      },
-      images:{
-        type: String,
-        default:'http://img.hb.aicdn.com/b4e756dff556ef08277874acd970c6a14219290b3285e-5yoSex_fw658'
+      if (this.loginName == ''){
+        MessageBox('提示', '用户名不能为空' );
+        return false
       }
-    },
-    data(){
-      return{
-        loginName:'',
-        password:'',
-        fullyear:'',
+      if (this.password == ''){
+        MessageBox('提示', '密码名不能为空');
+        return false
       }
-    },
-    created(){
-      this.fullyear = new Date().getFullYear();
-    },
-    methods: {
-      submit: function(event) {
-        if (this.loginName == ''){
-          MessageBox('提示', '用户名不能为空' );
-          return false
-        }
-        if (this.password == ''){
-          MessageBox('提示', '密码名不能为空');
-          return false
-        }
-        var that = this;
-        function getPublickey() {
-          let param = {"appid":"s3Core"};
-          let promise =  that.$http('/publicKey',param,'usermanage');
-          return promise;
-        };
-        function login(publickey) {
-          let pwd = publickey.exponent;
-          let param = {"loginName":that.loginName,"password":pwd,"appid":"s3Core"};
 
-          that.$http('/login',param,'usermanage')
-            .then(res => {
-              let result = res;
-              if (result.retCode === '200'){
-                //首次登陆
-                if (result.isFirstLogin != "false"){
-                  //修改状态
-                  that.$store.commit('userLogin');
-                  that.$store.commit('userFirstLogin');
-                  that.$store.commit('increment', {
-                    user: {
-                      userName: that.loginName
-                    }
-                  })
-                }else{
-                  //修改状态
-                  that.$store.commit('userLogin');
-                  that.$store.commit('increment', {
-                    user: {
-                      userName: that.loginName
-                    }
-                  })
-                }
-              }else{
-                MessageBox('提示', result.retMsg ||result.retmsg );
-              }
+      var getPublicKey = function() {
+        return new Promise((resolve,reject) => {
+          let param = {
+            appid: self.appid
+          }
+          s3.ajax('/publicKey',param,'usermanage').then(result => {
+            if(result.retCode == '200') {
+              resolve(result) 
+            } else {
+              reject(result)
+            }
+          })
+        })
+      }
+
+      getPublicKey()
+      .then( data => {
+        let pwd = s3.RSAEncrypt(data.modulus,data.exponent,self.password)
+        let param = {
+          loginName: self.loginName,
+          password: pwd,
+          appid: self.appid
+        }
+        return s3.ajax('/login',param,'usermanage')
+      })
+      .then(result => {
+        if (result.retCode === '200'){
+
+            let firstLoginFlag = false
+            if(result.isFirstLogin === 'false')
+              firstLoginFlag = true
+            self.$store.commit('userLogin');
+            self.$store.commit('userFirstLogin',firstLoginFlag);
+            self.$store.commit('setCurrentUser', {
+              user: {loginName: self.loginName}
             })
-            .catch(function(err){
-              console.log(err);
-            });
-        };
-        let arr = [getPublickey,login];
-        s3.ajaxChain(arr);
-      }
+        } else {
+          MessageBox('提示', result.retMsg ||result.retmsg );
+        }
+      })
+      .catch(error => {
+        throw new Error(error)
+      })
     }
   }
+}
 </script>
 
 <style scoped>

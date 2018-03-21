@@ -68,7 +68,7 @@
     },
     methods: {
       goHome: function() {
-        this.$store.commit('userFirstLogout');
+        this.$store.commit('userFirstLogin',false);
       },
       getValidateCode:function (phone,loginName) {
         //ajax请求

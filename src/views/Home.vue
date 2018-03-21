@@ -38,6 +38,6 @@
   }
 </script>
 
-<style >
+<style>
 
 </style>

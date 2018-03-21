@@ -102,17 +102,12 @@ router.beforeEach((to, from, next) => {
       store.commit('userLogout');
       store.commit('userFirstLogout');
     }
-    next();
-  }else {
-    // 进入路由前
-    console.log('导航开始，进入组件前，导航触发');
-    next();
   }
+  next();
 })
 
 router.afterEach((to, from) => {
   // 进入路由后
-  console.log('进入组件，守卫触发')
 })
 
 export default router

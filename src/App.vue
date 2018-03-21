@@ -11,7 +11,7 @@
       <s3-bottom :bottomlist="bottom" :selected = '$route.path' v-if="(!showLogin  && !showFisrstlogin) || !displayLogin"></s3-bottom>
     </div>
     <div v-if="displayLogin">
-      <s3-login v-if="showLogin"></s3-login>
+      <s3-login v-if="showLogin" :appid="appid" :logo="logo" :company="company"></s3-login>
       <s3-firstlogin v-if="!showLogin && showFisrstlogin"></s3-firstlogin>
     </div>
   </div>
@@ -31,8 +31,11 @@
           {icon:'icon-tuangou',text:'订货',pathUrl:'/products'},
           {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
         ],
-        displayLogin:true,
-        iswx:true,
+        displayLogin: true,
+        iswx: true,
+        appid: config.basic.custid,
+        company: config.basic.companyName,
+        logo: config.basic.logo
       }
     },
     computed: {

@@ -48,12 +48,29 @@ const dynamicRouter = function (router, outerRouter) {
   }
 }
 
+const getContextPath = function(){
+  let url = location.pathname
+  if(url === '/') {
+    return url
+  } else {
+    let rootPath = url.split('/')[1]
+    return rootPath
+  }
+}
+
+
 //set base URL
-if(config.basic['baseUrl'])
+if(config.basic['baseUrl']){
   s3.setBaseURL(config.basic.baseUrl)
+}
+if(!config.basic['custid']){
+  config.basic['custid'] = getContextPath()
+}
+
+const appid = config.basic.custid
 
 // 向服务器请求config配置
-s3.ajax('/config/router').then(function (result) {
+s3.ajax('/config/router',{},appid).then(function (result) {
   if(result)
     dynamicRouter(router, result)
   /* eslint-disable no-new */

@@ -25,14 +25,8 @@ export default {
   userLogout (state) {
   	state.isLogedIn = false
   },
-  userFirstLogin (state) {
+  userFirstLogin (state,firstLoginFlag) {
     state.isFirstLogedIn = true
-  },
-  userFirstLogout (state) {
-    state.isFirstLogedIn = false
-  },
-  increment (state,user){
-    state.user = user
   },
   pageinfo (state,page){
     state.page = page
