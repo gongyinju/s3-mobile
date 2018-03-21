@@ -81,7 +81,9 @@ s3.ajax('/config/router',{},appid).then(function (result) {
     components: { App },
     template: '<App/>',
     mounted () {
-      store.dispatch('getUserState',appid)
+      if(config.basic['login']){
+        store.dispatch('getUserState',appid)
+      }
     }
   })
 }, function (error) {
