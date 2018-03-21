@@ -7,10 +7,6 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    user: {
-      customerId: '020020',
-      userName: '一个假设的经销商名称'
-    },
     page:{
       title:'',
       backState:true

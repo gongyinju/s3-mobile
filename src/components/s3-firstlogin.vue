@@ -9,11 +9,11 @@
         <em>|</em>
         <button @click="getValidateCode(phone)" class="skin-color" :disabled="countingDown || !isPhoneValid">{{getCodeText}}</button>
       </div>
-      <mt-field label="绑定手机" placeholder="输入你的手机号" type="number" v-model="phone" class="phone"></mt-field>
-      <mt-field label="校验码" placeholder="输入你的手机效验码" type="number" v-model="validatecode"></mt-field>
-      <mt-field label="旧密码" placeholder="请输入你的旧密码" type="password" v-model="oldPassword"></mt-field>
-      <mt-field label="新密码" placeholder="请输入你的新密码" type="password" v-model="newPassword"></mt-field>
-      <mt-field label="确认密码" placeholder="请再次确认您的新密码" type="password" v-model="repeatPassword"></mt-field>
+      <mt-field label="绑定手机" placeholder="输入你的手机号" type="number" v-model.trim="phone" class="phone"></mt-field>
+      <mt-field label="校验码" placeholder="输入你的手机效验码" type="number" v-model.trim="validatecode"></mt-field>
+      <mt-field label="旧密码" placeholder="请输入你的旧密码" type="password" v-model.trim="oldPassword"></mt-field>
+      <mt-field label="新密码" placeholder="请输入你的新密码" type="password" v-model.trim="newPassword"></mt-field>
+      <mt-field label="确认密码" placeholder="请再次确认您的新密码" type="password" v-model.trim="repeatPassword"></mt-field>
     </div>
     <!--{{user.user.userName}}-->
     <div class="buttonBox">
@@ -40,6 +40,7 @@
 <script>
 
   import { MessageBox } from 'mint-ui';
+  const TIME_COUNT = 60;
   export default {
     data(){
       return{
@@ -50,7 +51,9 @@
         repeatPassword:'',
         getCodeText:'获取验证码',
         showTip:false,
-        countingDown:false
+        countingDown:false,
+        timer: null,
+        count: '',
       }
     },
     computed: {
@@ -85,17 +88,21 @@
           }
         })*/
         //点击之后 倒计时
-        /*this.countingDown = true;
-        var i = 60,timer = $interval(tick,1000,60);
-        function tick(){
-          i--;
-          $scope.getCodeText = "请等待("+i+")s";
+        if (!this.timer) {
+          this.count = TIME_COUNT;
+          this.countingDown = true;
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--;
+              this.getCodeText = `请等待${this.count}s`;
+            } else {
+              clearInterval(this.timer);
+              this.timer = null;
+              this.getCodeText = "获取验证码";
+              this.countingDown = false;
+            }
+          }, 1000)
         }
-        timer.then(function(){
-          this.getCodeText = "获取验证码";
-          this.countingDown = false;
-        })*/
-
 
       }
     }

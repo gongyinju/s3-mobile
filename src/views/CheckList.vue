@@ -1,20 +1,20 @@
 <template>
   <div class="checkList">
-    <anav></anav>
+    <!--<anav></anav>-->
     <!--<s3-date></s3-date>-->
     <!--<s3-upload ref="upload" @sendFile="sendFile" @deleteFile="deleteFile" :fileLoading="fileLoading" :filelist="filelist"></s3-upload>-->
   </div>
 </template>
 
 <script>
-  import anav from '@/components/nav.vue'
+//  import anav from '@/components/nav.vue'
 //  import s3Date from '@/components/s3-date.vue'
 //  import s3Upload from '@/components/s3-upload.vue'
 
   export default {
     components: {
 //      s3Upload,
-      anav
+//      anav
     },
 
     data () {

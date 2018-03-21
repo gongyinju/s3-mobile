@@ -12,6 +12,7 @@ config.basic.logo = "views/account/img/logo.png";
 config.basic.theme = "skinRed";
 //是否需要登陆
 config.basic.login = false;
+config.basic.baseUrl = 'http://localhost:8080/mocks'
 
 //PART II   DISPLAY
 config.display.products = {
