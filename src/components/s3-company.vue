@@ -7,12 +7,10 @@
         <span class="flexCenter"></span>
         <i class="iconfont icon-qiehuan1 skin-color"></i>
       </div>
-      <mt-actionsheet :actions="branchCompany" v-model="sheetVisible"></mt-actionsheet>
+      <mt-actionsheet :actions="companyList" v-model="sheetVisible"></mt-actionsheet>
     </div>
   </div>
 </template>
-
-
 
 <script type="text/babel">
   export default {
@@ -26,6 +24,9 @@
       },
       companyName:{
         type:String
+      },
+      changeCompany:{
+        type:Function
       }
     },
     data() {
@@ -33,6 +34,15 @@
         sheetVisible: false
       };
     },
+    computed: {
+      companyList(){
+        this.branchCompany.forEach(item => {
+          item.method = this.changeCompany;
+          item.name = item.companyName;
+        });
+        return this.branchCompany;
+      }
+    }
   };
 </script>
 <style>

@@ -25,8 +25,8 @@
         <span>{{fileLoading}}</span>
       </div>
     </div>
-    <!--v-if="progressShow"-->
-    <mt-progress :value="progress">
+
+    <mt-progress :value="progress" v-if="progressShow">
       <!--<div slot="end">{{Math.ceil(precent)}}%</div>-->
     </mt-progress>
   </div>
@@ -57,7 +57,6 @@
       }
     },
     methods: {
-
       upload(e) {
         var that = this;
         var fileupload = e.target.files[0];
@@ -86,13 +85,16 @@
       },
       //显示进度条
       onprogress (event) {
+        //如果此函数为axios回调
         console.log(event)
-          var complete = Math.floor(event.loaded / event.total * 100);
-          this.progressShow = true;
-          this.progress = complete;
-       /* if(this.progress==100){
+        var complete = Math.floor(event.loaded / event.total * 100);
+        this.progressShow = true;
+        this.progress = complete;
+        if(this.progress==100){
           this.fileLoading = '上传成功!';
-        }*/
+          this.progressShow = false;
+        }
+
       },
 
 
@@ -100,7 +102,6 @@
     },
     created(){
 //      s3.setAllow(['txt']);
-
     }
   }
 </script>

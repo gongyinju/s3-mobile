@@ -1,20 +1,23 @@
 <template>
   <div class="checkList">
-    <!--<anav></anav>-->
-    <!--<s3-date></s3-date>-->
-    <!--<s3-upload ref="upload" @sendFile="sendFile" @deleteFile="deleteFile" :fileLoading="fileLoading" :filelist="filelist"></s3-upload>-->
+    <s3-upload ref="upload" @sendFile="sendFile" @deleteFile="deleteFile" :fileLoading="fileLoading" :filelist="filelist"></s3-upload>
+    <s3-formvalcode ></s3-formvalcode>
+
+    <div class='buttonBox' >
+      <button @click="changePhone()" >确认</button>
+    </div>
+
   </div>
 </template>
 
 <script>
-//  import anav from '@/components/nav.vue'
-//  import s3Date from '@/components/s3-date.vue'
-//  import s3Upload from '@/components/s3-upload.vue'
+  import s3Upload from '@/components/s3-upload.vue'
+  import s3Formvalcode from '@/components/s3-formValCode.vue'
 
   export default {
     components: {
-//      s3Upload,
-//      anav
+      s3Upload,
+      s3Formvalcode
     },
 
     data () {
@@ -25,10 +28,10 @@
         filelist:[]
       }
     },
-   /* methods:{
+    methods:{
       //后台请求上传
       sendFile:function (file){
-        let promise = s3.upload('https://www.test.com/api/upload',file,this.$refs.upload.onprogress,this.postData);
+        let promise = s3.upload('https://www.test.com/api/upload',file,this.postData,this.$refs.upload.onprogress);
         promise.then(res => {
           if (res.status == 200) {
             this.fileLoading = '上传完成'
@@ -45,24 +48,22 @@
           this.filelist = res.dataList;
         })
       },
+      //删除历史附件
       deleteFile:function (annexUrl) {
         console.log(annexUrl)
+      },
+      //确认修改手机号
+      changePhone:function (phone,validateCode) {
+
       }
-
-
-
-    },*/
-    created(){
-
-
-    }
+    },
 
 
   }
 </script>
 
 <style scoped>
-.checkList{
-  padding-top: 46px!important;
-}
+  .checkList{
+    padding-top: 86px!important;
+  }
 </style>
