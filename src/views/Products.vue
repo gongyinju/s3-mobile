@@ -1,14 +1,14 @@
 <template>
   <div>
     <s3-search @keySearch="keySearch"></s3-search>
-    <s3-company :branch-company="branchCompany"  :company-name="companyName"  :changeCompany="changeCompany"> </s3-company>
+    <s3-action :action-list="branchCompany"  :current-name="companyName" > </s3-action>
     <!--列表访问详情为传入的modules加该列表的id-->
     <s3-card :list="products" :modules="modules" :icon="iconclass" :detail="detail" ></s3-card>
   </div>
 </template>
 <script>
   import s3Search from '@/components/s3-search.vue'
-  import s3Company from '@/components/s3-company.vue'
+  import s3Action from '@/components/s3-action.vue'
   import s3Card from '@/components/s3-card.vue'
 
   export default {
@@ -42,11 +42,15 @@
       s3.ajax('/getBranchCompanyInfo',{},'s3core')
         .then(res=>{
           this.branchCompany = res.branchCompany;
+          this.branchCompany.forEach(item => {
+            item.method = this.changeCompany;
+            item.name = item.companyName;
+          });
         })
     },
     components: {
       s3Search,
-      s3Company,
+      s3Action,
       s3Card
     }
   }
