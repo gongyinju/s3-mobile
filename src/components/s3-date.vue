@@ -1,19 +1,31 @@
 <template>
-  <div class="selectCom">
-
-
-
-  </div>
+  <span>
+    {{dateFormat}}
+  </span>
 </template>
 
 <script>
-
   export default {
+    props:{
+      date: {
+        type: Number,
+      },
+      fmt: {
+        type: String,
+        default:'yyyy-MM-dd'
+      },
+    },
     data() {
       return {
 
       };
-    }
+    },
+    computed: {
+      dateFormat () {
+        return  new Date(this.date).format(this.fmt)
+      }
+    },
+
   }
 </script>
 

@@ -1,23 +1,19 @@
 <template>
   <div class="checkList">
     <s3-upload ref="upload" @sendFile="sendFile" @deleteFile="deleteFile" :fileLoading="fileLoading" :filelist="filelist"></s3-upload>
-    <s3-formvalcode ></s3-formvalcode>
-
-    <div class='buttonBox' >
-      <button @click="changePhone()" >确认</button>
-    </div>
+    <s3-date :date="dateNum"></s3-date>
 
   </div>
 </template>
 
 <script>
   import s3Upload from '@/components/s3-upload.vue'
-  import s3Formvalcode from '@/components/s3-formValCode.vue'
+  import s3Date from '@/components/s3-date.vue'
 
   export default {
     components: {
       s3Upload,
-      s3Formvalcode
+      s3Date
     },
 
     data () {
@@ -25,7 +21,8 @@
         postData: {},
         file:'',
         fileLoading:'',
-        filelist:[]
+        filelist:[],
+        dateNum:1510621267683
       }
     },
     methods:{
