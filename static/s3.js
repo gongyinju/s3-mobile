@@ -2825,7 +2825,7 @@
                 flag++;
             }
         }
-        
+
 
         var result;
         if(flag == 0){
@@ -2958,7 +2958,7 @@
      * @param fileToUpload  上传的文件
      * @param data  带数据的上传
      */
-    var uploadFileToUrl = function(url,fileToUpload,data){
+    var uploadFileToUrl = function(url,fileToUpload,data,call){
         var urlReg = /(http)(s?):\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/)?([a-zA-Z0-9\-\,\?\,\'\/\\\+&amp;%\$#_]*)?/;
         if(!urlReg.test(url)){
             throw new Error("未定义的上传文件地址, 请通过公共函数getUploadURL来定义上传地址.");
@@ -2981,7 +2981,11 @@
         }
         var promise = new Promise(function(resolve, reject){
             axios.post(url,fd,{
-                headers: { 'Content-Type' : 'multipart/form-data'}
+              headers: { 'Content-Type' : 'multipart/form-data'},
+              onUploadProgress: progressEvent => {
+                console.log(progressEvent)
+                call(progressEvent);
+              }
             })
                 .then(function(res){
                     var retData = res;
@@ -3096,7 +3100,7 @@
         }
         return fmt;
     }
-    
+
     /**
      * 保证精确性的数值乘法
      * @param n1

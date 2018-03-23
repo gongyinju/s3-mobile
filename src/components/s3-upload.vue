@@ -32,7 +32,6 @@
   </div>
 </template>
 <script>
-//  Mock.mock('https://www.test.com/api/upload',{});
 
   export default {
     props: {
@@ -85,19 +84,14 @@
       },
       //显示进度条
       onprogress (event) {
-        //如果此函数为axios回调
-        console.log(event)
-        var complete = Math.floor(event.loaded / event.total * 100);
         this.progressShow = true;
-        this.progress = complete;
+        //如果此函数为axios回调
+        console.log(event);
+        this.progress = Math.round((event.loaded * 100) / event.total);
         if(this.progress==100){
-          this.fileLoading = '上传成功!';
           this.progressShow = false;
         }
-
       },
-
-
 
     },
     created(){

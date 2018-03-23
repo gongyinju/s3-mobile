@@ -38,7 +38,7 @@
     methods:{
       //后台请求上传
       sendFile:function (file){
-        let promise = s3.upload('https://www.test.com/api/upload',file,this.postData,this.$refs.upload.onprogress);
+        let promise = s3.upload('https://jsonplaceholder.typicode.com/posts/',file,this.postData,this.$refs.upload.onprogress);
         promise.then(res => {
           if (res.status == 200) {
             this.fileLoading = '上传完成'
@@ -59,7 +59,6 @@
       deleteFile:function (annexUrl) {
         console.log(annexUrl)
       },
-
     },
     created(){
       //获取经销商列表
