@@ -3,7 +3,8 @@
     <s3-upload ref="upload" @sendFile="sendFile" @deleteFile="deleteFile" :fileLoading="fileLoading" :filelist="filelist"></s3-upload>
 
     <!--{{dealerList}}-->
-    <s3-popup :popup-list="dealerList" :current-name="operuserName" ></s3-popup>
+    <!--:current-name="operuserName"-->
+    <s3-popup :popup-list="dealerList"  ></s3-popup>
   </div>
 </template>
 

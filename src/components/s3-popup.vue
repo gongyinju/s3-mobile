@@ -53,9 +53,9 @@
         }
       },
       //展示经销商名称
-      currentName:{
+      /*currentName:{
         type:String
-      }
+      }*/
     },
     data() {
       return {
@@ -66,6 +66,7 @@
     computed: {
       //获取当前经销商
       currentDealer () {
+        console.log('computed')
         return this.$store.state.currentDealer
       },
     },
@@ -79,6 +80,10 @@
         //更改currentDealer
         this.$store.commit('setCurrentDealer',item)
       }
+    },
+    created(){
+      console.log('created');
+
     },
   };
 </script>
