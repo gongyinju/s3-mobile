@@ -31,9 +31,6 @@
     -webkit-transition: top .5s ease;
     transition: top .5s ease;
   }
-  .search-css .mint-searchbar {
-    margin-top: 40px;
-  }
   .search-css .mint-search{
     margin-top: -1px;
     height: auto;

@@ -13,8 +13,13 @@
 </template>
 
 <script type="text/babel">
+  /**
+   * s3-action
+   * @param {string} [currentName] - 展示当前选中的值
+   * @param {array} [actionList] - 信息列表
+   */
   export default {
-    name:'change-company',
+    name:'s3-action',
     props: {
       actionList: {
         type: Array,

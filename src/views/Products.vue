@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="products">
     <s3-search @keySearch="keySearch"></s3-search>
     <s3-action :action-list="branchCompany"  :current-name="companyName" > </s3-action>
     <!--列表访问详情为传入的modules加该列表的id-->
@@ -57,4 +57,7 @@
 </script>
 
 <style>
+  .products{
+    padding-top: 40px;
+  }
 </style>

@@ -52,7 +52,7 @@
       },
       iswx () {
         return s3.isWeixin()
-      } 
+      }
     },
     components: {
       s3Bottom,
@@ -70,14 +70,11 @@
   #app{
     position: fixed;
     left: 0;right: 0;
+    top: 0;bottom: 46px;
     z-index: 1;
-    bottom: 46px;
     height: 100%;
     overflow: auto;
     background: #fff;
-  }
-  #app>div{
-    padding-top: 46px;
   }
   ul{
     list-style: none;

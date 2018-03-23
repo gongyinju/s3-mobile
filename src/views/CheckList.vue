@@ -1,28 +1,37 @@
 <template>
   <div class="checkList">
     <s3-upload ref="upload" @sendFile="sendFile" @deleteFile="deleteFile" :fileLoading="fileLoading" :filelist="filelist"></s3-upload>
-    <s3-date :date="dateNum"></s3-date>
 
+    <!--{{dealerList}}-->
+    <s3-popup :popup-list="dealerList" :current-name="operuserName" ></s3-popup>
   </div>
 </template>
 
 <script>
   import s3Upload from '@/components/s3-upload.vue'
-  import s3Date from '@/components/s3-date.vue'
+  import s3Popup from '@/components/s3-popup.vue'
+
 
   export default {
     components: {
       s3Upload,
-      s3Date
+      s3Popup
     },
 
     data () {
       return {
+        //
         postData: {},
         file:'',
         fileLoading:'',
         filelist:[],
-        dateNum:1510621267683
+        //日期参数
+//        dateNum:1510621267683,
+        //切换经销商
+        operuserName:'全部经销商',
+        dealerList:[]
+
+
       }
     },
     methods:{
@@ -49,18 +58,24 @@
       deleteFile:function (annexUrl) {
         console.log(annexUrl)
       },
-      //确认修改手机号
-      changePhone:function (phone,validateCode) {
 
-      }
     },
-
+    created(){
+      //获取经销商列表
+      s3.ajax('/getDealerList',{},'s3core')
+        .then(res=>{
+          let all = {'customerId':undefined,'userName':'全部经销商'};
+          this.$store.commit('setCurrentDealer',all)
+          this.dealerList = [all].concat(res.dealerList);
+          console.log(this.$store.state.currentDealer)
+        })
+    },
 
   }
 </script>
 
 <style scoped>
   .checkList{
-    padding-top: 86px!important;
+    padding-top: 40px;
   }
 </style>
