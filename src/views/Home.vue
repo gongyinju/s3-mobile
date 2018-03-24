@@ -16,9 +16,10 @@
     data(){
       return{
         gridlist:[
-          {icon:'icon-tuangou',text:'订货',pathUrl:'/products'},
-          {icon:'icon-icon17',text:'审核',pathUrl:'/checklist'},
-          {icon:'icon-guanxi',text:'团购',pathUrl:'/orderlist'}
+          {icon:'icon-chanpin',text:'js组件',pathUrl:'/jsCom'},
+          {icon:'icon-chanpin',text:'css组件',pathUrl:'/cssCom'},
+          {icon:'icon-chanpin',text:'s3组件',pathUrl:'/s3Com'},
+          {icon:'icon-chanpin',text:'form组件',pathUrl:'/formCom'}
         ],
         images:[],
         otherModules:[]

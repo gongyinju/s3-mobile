@@ -29,8 +29,9 @@
       return {
         bottom:[
           {icon:'icon-shouye-copy-copy-copy',text:'首页',pathUrl:'/'},
-          {icon:'icon-tuangou',text:'订货',pathUrl:'/products'},
-          {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
+          {icon:'icon-chanpin',text:'JS组件',pathUrl:'/jsCom'},
+          {icon:'icon-chanpin',text:'CSS组件',pathUrl:'/cssCom'},
+          {icon:'icon-chanpin',text:'S3组件',pathUrl:'/s3Com'},
         ],
         appid: config.basic.custid,
         company: config.basic.companyName,

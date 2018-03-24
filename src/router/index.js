@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
+import Home from '@/views/Home'
+//获取组件列表
+import NavConfig from './../../static/nav.config.json'
 
 Vue.use(VueRouter)
-import Home from '@/views/Home'
 
 let routes = [
   {
@@ -22,69 +24,87 @@ let routes = [
     }
   },
   {
-    path: '/products',
-    name: 'products',
+    path: '/jsCom',
+    name: 'jsCom',
     component: function (resolve) {
-      require(['@/views/Products'], resolve)
+      require(['@/views/jsComponents'], resolve)
     },
     beforeEnter(to, from, next) {
       let page = {
-        title: '订货',
+        title: 'js组件库'
+      }
+      store.commit('pageinfo', page)
+      next();
+    },
+  },
+  {
+    path: '/cssCom',
+    name: 'cssCom',
+    component: function (resolve) {
+      require(['@/views/cssComponents'], resolve)
+    },
+    beforeEnter(to, from, next) {
+      let page = {
+        title: 'css组件库'
+      }
+      store.commit('pageinfo', page)
+      next();
+    },
+  },
+  {
+    path: '/s3Com',
+    name: 's3Com',
+    component: function (resolve) {
+      require(['@/views/s3Components'], resolve)
+    },
+    beforeEnter(to, from, next) {
+      let page = {
+        title: 's3组件库'
+      }
+      store.commit('pageinfo', page)
+      next();
+    },
+  },
+  {
+    path: '/formCom',
+    name: 'formCom',
+    component: function (resolve) {
+      require(['@/views/formComponents'], resolve)
+    },
+    beforeEnter(to, from, next) {
+      let page = {
+        title: 'form组件库',
         backState:true,
-        backUrl:'/person'
       }
       store.commit('pageinfo', page)
       next();
     },
   },
-  {
-    path: '/products/:userId',
-    name: 'productDetail',
-    component: function (resolve) {
-      require(['@/views/ProductDetail'], resolve)
-    },
-    beforeEnter(to, from, next) {
-      let  page ={
-        title: '产品详情',
-      }
-      store.commit('pageinfo', page)
-      next();
-    }
-  },
-  {
-    path: '/person',
-    name: 'Person',
-    component: function (resolve) {
-      require(['@/views/Person'], resolve)
-    },
-    beforeEnter(to, from, next) {
-      let  page ={
-        title: '个人中心'
-      }
-      store.commit('pageinfo', page)
-      next();
-    }
-  },
-  {
-    path: '/checklist',
-    name: 'checklist',
-    component: function (resolve) {
-      require(['@/views/CheckList'], resolve)
-    },
-    beforeEnter(to, from, next) {
-      let  page ={
-        title: '审核'
-      }
-      store.commit('pageinfo', page)
-      next();
-    }
-  },
+
 ]
+
+const registerRoute = (config) => {
+  config.map(nav =>
+    nav.list.map(example =>{
+      routes.push({
+        name: example.name,
+        path: example.path,
+        component:  function (resolve) {
+          require(['@/views/example'+example.path], resolve)
+        },
+      })
+    })
+  );
+  return { routes, navs: config };
+};
+registerRoute(NavConfig);
+
+
+export const navs =NavConfig;
 
 var router = new VueRouter({
   routes
 })
-
 /**
  * 导航守卫
  * to: Route: 即将要进入的目标 路由对象
@@ -93,7 +113,7 @@ var router = new VueRouter({
  *
 */
 router.beforeEach((to, from, next) => {
-
+  console.log(to)
   // 在home路由中配置的meta
   if(to.meta.requireAuth){
     // 判断是否登录
