@@ -1,13 +1,13 @@
 <template>
   <div >
     <mt-header :title="headTitle" fixed>
-      <router-link  v-if="goBack" slot="left" :to="goBackUrl" >
+      <router-link  v-if="showGoBack" slot="left" :to="backState" >
         <mt-button icon="back" ></mt-button>
       </router-link>
       <!--<mt-button  icon="more" slot="right"></mt-button>-->
-      <!--<router-link :to="right.to" v-if="right.show" slot="right">
-        <mt-button :icon="right.icon" ></mt-button>
-      </router-link>-->
+      <router-link to="/" v-if="goHome" slot="right">
+        <mt-button><i class="iconfont icon-shouye-copy-copy-copy"></i></mt-button>
+      </router-link>
     </mt-header>
   </div>
 </template>
@@ -16,20 +16,20 @@
   export default {
     props: {
       headTitle:{},
-      goBack:{
-        type: Boolean,
-      },
-      goBackUrl:{
+      backState:{
         type: String,
         default:'/'
       },
-      goRight:{},
+      goHome:false,
     },
-    data(){
+    data () {
       return{
       };
     },
-    created(){
+    computed: {
+      showGoBack () {
+        return this.backState != ''
+      }
     }
   }
 </script>

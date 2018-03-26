@@ -33,9 +33,9 @@
   const TIME_COUNT = 60;
   export default {
     props: {
-      url: {
+      loginName: {
         type: String,
-        default: 'http://localhost:8080/mocks'
+        default: ''
       },
     },
     data(){
@@ -53,6 +53,9 @@
       //手机号验证
       isPhoneValid() {
         return /^1[3|5|7|8][0-9]\d{8}$/.test(this.phone);
+      },
+      appid () {
+        return this.$store.state.appid
       }
     },
     methods: {
@@ -60,22 +63,25 @@
         //ajax请求
         var param = {
           mobile:phone,
-          appid:'s3core'
+          appid:this.appid
         }
         if(loginName)
           param.loginName = loginName;
+        
         //显示提示信息
         Toast('短信验证码以向您的手机发送，请在输入框内填入您收到的验证码！');
 
-        /*var promise =s3.ajax(this.url,param,'userManage');
-        promise.then(function(result){
+        s3.ajax('/validateCode',param,'usermanage')
+        .then(function(result){
           if(result.retCode !== "200"){
             Toast(result.retMsg||"您的账号暂不能使用忘记密码功能，请联系企业咨询!");
             this.showTip = false;
           }else{
             this.showTip = true;
           }
-        })*/
+        })
+
+
         //点击之后 倒计时
         if (!this.timer) {
           this.count = TIME_COUNT;

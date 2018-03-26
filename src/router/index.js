@@ -2,30 +2,43 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
 import Home from '@/views/Home'
+import LoginView from '@/views/login'
 //获取组件列表
 import NavConfig from './../../static/nav.config.json'
 
 Vue.use(VueRouter)
 
+
+let loginRoutes = []
+try {
+  let loginConfig = config.basic.login
+  loginRoutes = [
+    {
+      path: '/login',
+      name: '登录',
+      meta: {
+        notRequireAuth: true,
+      },
+      component: LoginView
+    }
+  ]
+}catch(e){
+
+}
+
 let routes = [
   {
     path: '/',
-    name: 'home',
+    name: '首页',
     component: Home,
-    meta : {
-      requireAuth: true,
-    },
-    beforeEnter(to, from, next) {
-      let  page ={
-        title: ''
-      }
-      store.commit('pageinfo', page)
-      next();
-    }
   },
   {
     path: '/jsCom',
     name: 'js组件库',
+    meta: {
+      backState: '/',
+      goHome: true
+    },
     component: function (resolve) {
       require(['@/views/jsComponents'], resolve)
     }
@@ -33,6 +46,9 @@ let routes = [
   {
     path: '/cssCom',
     name: 'css组件库',
+    meta: {
+      backState: '/'
+    },
     component: function (resolve) {
       require(['@/views/cssComponents'], resolve)
     }
@@ -40,6 +56,9 @@ let routes = [
   {
     path: '/s3Com',
     name: 's3组件库',
+    meta: {
+      backState: '/'
+    },
     component: function (resolve) {
       require(['@/views/s3Components'], resolve)
     }
@@ -47,12 +66,26 @@ let routes = [
   {
     path: '/formCom',
     name: 'form组件库',
+    meta: {
+      backState: '/'
+    },
     component: function (resolve) {
       require(['@/views/formComponents'], resolve)
     }
   },
-
+  {
+    path: '/user',
+    name: '用户信息',
+    meta: {
+      backState: '/'
+    },
+    component: function (resolve) {
+      require(['@/views/formComponents'], resolve)
+    }
+  }
 ]
+
+routes = loginRoutes.concat(routes)
 
 const registerRoute = (config) => {
   config.map(nav =>
@@ -86,19 +119,20 @@ var router = new VueRouter({
 router.beforeEach((to, from, next) => {
   let page = {
     title: to.name,
-    backState:true,
+    backState: to.meta.backState || '',
+    goHome: to.meta.goHome || false
   }
   store.commit('pageinfo', page)
 
   // 在home路由中配置的meta
-  if(to.meta.requireAuth){
-    // 判断是否登录
-    if (!store.state.isLogedIn){
-      // 没有登录跳转到登录页面
+  if(!to.meta.notRequireAuth && !store.state.isLogedIn) {
       store.commit('userLogout')
-    }
+      next({
+        path: '/login'
+      })
+  }else{
+    next()
   }
-  next();
 })
 
 router.afterEach((to, from) => {

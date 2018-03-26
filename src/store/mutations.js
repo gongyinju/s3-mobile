@@ -1,4 +1,8 @@
 export default {
+
+  setAppId (state,appid){
+    state.appid = appid
+  },
   setCurrentUser (state, user) {
     if (user !== undefined) {
       state.currentUser = user
@@ -19,6 +23,7 @@ export default {
   	  state.currentRole = role
   	}
   },
+
   userLogin (state) {
   	state.isLogedIn = true
   },

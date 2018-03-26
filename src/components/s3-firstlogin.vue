@@ -5,16 +5,14 @@
       <p>并修改密码</p>
     </div>
     <div class="formBox">
-      <s3-formvalcode ref="formvalcode"></s3-formvalcode>
+      <s3-formvalcode ref="formvalcode" :loginName = "user.UserEntityloginName"></s3-formvalcode>
       <mt-field label="旧密码" placeholder="请输入你的旧密码" type="password" v-model.trim="oldPassword"></mt-field>
       <mt-field label="新密码" placeholder="请输入你的新密码" type="password" v-model.trim="newPassword"></mt-field>
       <mt-field label="确认密码" placeholder="请再次确认您的新密码" type="password" v-model.trim="repeatPassword"></mt-field>
     </div>
-    <!--{{user.user.userName}}-->
     <div class="buttonBox">
-      <mt-button type="primary" size="large" class="loginBtn" @click="goHome" >确认</mt-button>
+      <mt-button type="primary" size="large" class="loginBtn" v-on:click="changePassword" >确认</mt-button>
     </div>
-
 
     <div class='warningBox'>
       <p class='notice-txt'>温馨提示</p>
@@ -30,32 +28,41 @@
   import { MessageBox } from 'mint-ui';
   import s3Formvalcode from '@/components/s3-formValCode.vue'
 
-
   export default {
     components: {s3Formvalcode},
+    props:{
+      success: {
+        type: String,
+        default: '/home'
+      }
+    },
     data(){
       return{
         validatecode:null,
         oldPassword:'',
         newPassword:'',
-        repeatPassword:'',
+        repeatPassword:''
       }
     },
     computed: {
-      //获取登录账号信息
       user () {
-        return this.$store.state.user
+        return this.$store.state.currentUser
       },
-
+      appid () {
+        return this.$store.state.appid
+      }
     },
     methods: {
-      goHome: function() {
-        //获取手机号和验证码
-        console.log(this.$refs.formvalcode.phone);
-        console.log(this.$refs.formvalcode.validatecode);
-        this.$store.commit('userFirstLogin',false);
-      },
+      changePassword: function(event){
+        console.log(this.user)
+        console.log(this.$refs.formvalcode.phone)
+        console.log(this.$refs.formvalcode.validatecode)
 
+        this.$store.commit('userFirstLogin',false)
+        this.$store.commit('userLogin')
+        this.$store.dispatch('getUserState')
+        this.$router.push(this.success)
+      }
     }
   }
 </script>

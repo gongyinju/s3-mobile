@@ -29,11 +29,6 @@ import { MessageBox } from 'mint-ui';
 import store from '@/store'
 export default {
   props:{
-    appid: {
-      type: String,
-      default: 's3Core',
-      required: true
-    },
     company: {
       type: String,
       default:'核心企业电子供应链平台'
@@ -41,6 +36,10 @@ export default {
     logo:{
       type: String,
       default:'http://file.gongyinju.com/group1/M00/00/5B/bQYdm1mH6MCARxkxAABfhUPd7bM324.jpg'
+    },
+    success: {
+      type: String,
+      default: '/home'
     }
   },
   data(){
@@ -52,6 +51,9 @@ export default {
   computed: {
     fullyear () {
       return new Date().getFullYear()
+    },
+    appid () {
+      return this.$store.state.appid
     }
   },
   methods: {
@@ -94,13 +96,16 @@ export default {
       })
       .then(result => {
         if (result.retCode === '200'){
+          self.$store.commit('userLogin')
+          self.$store.dispatch('getUserState')
 
-            let firstLoginFlag = false
-            if(result.isFirstLogin === 'false')
-              firstLoginFlag = true
-            self.$store.commit('userLogin')
+          let firstLoginFlag = true
+          if (result.isFirstLogin === 'true') {
+            firstLoginFlag = true
             self.$store.commit('userFirstLogin',firstLoginFlag)
-            self.$store.dispatch('getUserState')
+          } else {
+            self.$router.push(self.success)
+          }
         } else {
           MessageBox('提示', result.retMsg ||result.retmsg )
         }

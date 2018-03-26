@@ -82,6 +82,7 @@ s3.ajax('/config/router',{},appid).then(function (result) {
     template: '<App/>',
     mounted () {
       if(config.basic['login']){
+        store.commit('setAppId',appid)
         store.dispatch('getUserState',appid)
       }
     }

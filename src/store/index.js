@@ -9,8 +9,10 @@ const store = new Vuex.Store({
   state: {
     page:{
       title:'',
-      backState:true
+      backState:'',
+      goHome: false
     },
+    appid: 's3Core',
     isFirstLogedIn:false,
     isLogedIn: false,
     currentUser: null, // 当前登录用户
