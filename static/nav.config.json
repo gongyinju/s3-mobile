@@ -13,11 +13,6 @@
         "icon": "indicator"
       },
       {
-        "path": "/infinite-scroll",
-        "name": "Infinite scroll",
-        "icon": "infinite-scroll"
-      },
-      {
         "path": "/message-box",
         "name": "Message box",
         "icon": "message-box"

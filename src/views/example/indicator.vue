@@ -1,6 +1,5 @@
 <template>
   <div class="page-indicator">
-    <h1 class="page-title">Indicator</h1>
     <div class="page-indicator-wrapper">
       <mt-button @click.native="openIndicator" size="large">点击弹出 Indicator</mt-button>
       <mt-button @click.native="openIndicatorWithSpinner" size="large">可配置 spinner</mt-button>
@@ -10,18 +9,17 @@
 </template>
 
 <style>
-  @component-namespace page {
-    @component indicator {
-      @descendent wrapper {
-        padding: 0 20px;
-        position: absolute 50% * * *;
-        width: 100%;
-        transform: translateY(-50%);
-        button:not(:last-child) {
-          margin-bottom: 20px;
-        }
-      }
-    }
+  .page-indicator .page-indicator-wrapper {
+    padding: 0 20px;
+    top: 50%;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .page-indicator button{
+    margin-bottom: 20px;
   }
 </style>
 
@@ -31,6 +29,7 @@
   export default {
     methods: {
       openIndicator() {
+        console.log(111)
         Indicator.open();
         setTimeout(() => Indicator.close(), 2000);
       },

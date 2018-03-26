@@ -25,60 +25,31 @@ let routes = [
   },
   {
     path: '/jsCom',
-    name: 'jsCom',
+    name: 'js组件库',
     component: function (resolve) {
       require(['@/views/jsComponents'], resolve)
-    },
-    beforeEnter(to, from, next) {
-      let page = {
-        title: 'js组件库'
-      }
-      store.commit('pageinfo', page)
-      next();
-    },
+    }
   },
   {
     path: '/cssCom',
-    name: 'cssCom',
+    name: 'css组件库',
     component: function (resolve) {
       require(['@/views/cssComponents'], resolve)
-    },
-    beforeEnter(to, from, next) {
-      let page = {
-        title: 'css组件库'
-      }
-      store.commit('pageinfo', page)
-      next();
-    },
+    }
   },
   {
     path: '/s3Com',
-    name: 's3Com',
+    name: 's3组件库',
     component: function (resolve) {
       require(['@/views/s3Components'], resolve)
-    },
-    beforeEnter(to, from, next) {
-      let page = {
-        title: 's3组件库'
-      }
-      store.commit('pageinfo', page)
-      next();
-    },
+    }
   },
   {
     path: '/formCom',
-    name: 'formCom',
+    name: 'form组件库',
     component: function (resolve) {
       require(['@/views/formComponents'], resolve)
-    },
-    beforeEnter(to, from, next) {
-      let page = {
-        title: 'form组件库',
-        backState:true,
-      }
-      store.commit('pageinfo', page)
-      next();
-    },
+    }
   },
 
 ]
@@ -113,7 +84,12 @@ var router = new VueRouter({
  *
 */
 router.beforeEach((to, from, next) => {
-  console.log(to)
+  let page = {
+    title: to.name,
+    backState:true,
+  }
+  store.commit('pageinfo', page)
+
   // 在home路由中配置的meta
   if(to.meta.requireAuth){
     // 判断是否登录

@@ -1,27 +1,25 @@
 <template>
   <div class="page-toast">
-    <h1 class="page-title">Toast</h1>
+    <!--<h1 class="page-title">Toast</h1>-->
     <div class="page-toast-wrapper">
       <mt-button @click.native="openToast" size="large">点击弹出 Toast</mt-button>
       <mt-button @click.native="openToastWithIcon" size="large">点击弹出带有 icon 的 Toast</mt-button>
-      <mt-button @click.native="openBottomToast" size="large">自定义 Toast 位置</mt-button>
     </div>
   </div>
 </template>
 
 <style>
-  @component-namespace page {
-    @component toast {
-      @descendent wrapper {
-        padding: 0 20px;
-        position: absolute 50% * * *;
-        width: 100%;
-        transform: translateY(-50%);
-        button:not(:last-child) {
-          margin-bottom: 20px;
-        }
-      }
-    }
+  .page-toast .page-toast-wrapper {
+    padding: 0 20px;
+    top: 50%;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .page-toast button{
+    margin-bottom: 20px;
   }
 </style>
 
