@@ -50,7 +50,7 @@
     line-height: 60px;
     color: #FFF;
     position:absolute;
-    bottom: 30px;
+    bottom: 50px;
   }
   .my-icon-button{
     width:30px;
@@ -66,4 +66,3 @@
     background-color:#26a2ff;
   }
 </style>
- 

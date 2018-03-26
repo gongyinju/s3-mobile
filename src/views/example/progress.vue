@@ -1,6 +1,5 @@
 <template>
   <div class="page-progress">
-    <h1 class="page-title">Progress</h1>
     <mt-cell title="默认">
       <mt-progress></mt-progress>
     </mt-cell>
@@ -26,38 +25,35 @@
 </template>
 
 <style>
-  @component-namespace page {
-    @component progress {
-      .mint-cell-value {
-        flex: 2.5;
-        position: relative;
-        top: -20px;
-      }
+  .page-progress {
+    padding-top: 39px;
+  }
+  .page-progress  .mint-cell-value {
+    flex: 2.5;
+    position: relative;
+    top: -20px;
+  }
 
-      .mt-progress {
-        width: 100%;
-        position: absolute;
-        top: 5px;
-      }
+  .page-progress  .mt-progress {
+    width: 100%;
+    position: absolute;
+    top: 5px;
+  }
 
-      @descendent wrapper {
-        padding: 0 10px;
-        margin-top: 50px;
+  .page-progress  .page-progress-wrapper {
+    padding: 0 10px;
+    margin-top: 50px;
+  }
+  .page-progress  .page-progress-wrapper .mt-progress {
+    position: relative;
+  }
 
-        .mt-progress {
-          position: relative;
-        }
+  .page-progress .progress-fade-transition {
+    transition: opacity .3s;
+  }
 
-        .progress-fade-transition {
-          transition: opacity .3s;
-        }
-
-        .progress-fade-enter,
-        .progress-fade-leave {
-          opacity: 0;
-        }
-      }
-    }
+  .page-progress .progress-fade-enter, .page-progress  .progress-fade-leave {
+    opacity: 0;
   }
 </style>
 
@@ -79,7 +75,7 @@
         if (val >= 100) {
           this.uploading = false;
           this.progressVisible = false;
-          setTimeout(() => Toast({ message: '上传成功', position: 'bottom', duration: 1000 }), 200);
+          setTimeout(() => Toast({ message: '上传成功', duration: 1000 }), 200);
           clearTimeout(this.timer);
         }
       }

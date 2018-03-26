@@ -1,7 +1,5 @@
 <template>
   <div class="page-indexlist">
-    <h1 class="page-title">Index List</h1>
-    <p class="page-indexlist-desc">此例请使用手机查看</p>
     <div class="page-indexlist-wrapper">
       <mt-index-list>
         <mt-index-section v-for="item in alphabet" :index="item.initial">
@@ -13,19 +11,14 @@
 </template>
 
 <style>
-  @component-namespace page {
-    @component indexlist {
-      @descendent desc {
-        text-align: center;
-        color: #666;
-        padding-bottom: 5px;
-      }
+  .page-indexlist {
+    padding-top: 40px;
+    padding-bottom: 46px;
+  }
 
-      @descendent wrapper {
-        width: 100%;
-        border-top: solid 1px #ddd;
-      }
-    }
+  .page-indexlist .page-indexlist-wrapper{
+    width: 100%;
+    border-top: solid 1px #ddd;
   }
 </style>
 

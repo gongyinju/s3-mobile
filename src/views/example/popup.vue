@@ -1,18 +1,10 @@
 <template>
   <div class="page-popup">
-    <h1 class="page-title">Popup</h1>
     <div class="page-popup-wrapper">
-      <mt-button @click.native="popupVisible1 = true" size="large" ref="button">中部弹出 popup</mt-button>
       <mt-button @click.native="popupVisible2 = true" size="large">上侧弹出 popup</mt-button>
       <mt-button @click.native="popupVisible3 = true" size="large">右侧弹出 popup</mt-button>
       <mt-button @click.native="popupVisible4 = true" size="large">下侧弹出 popup</mt-button>
     </div>
-    <mt-popup v-model="popupVisible1" popup-transition="popup-fade" class="mint-popup-1" :style="{ top: buttonBottom + 10 + 'px' }">
-      <h1>popup</h1>
-      <p>/ ˈpɑpˌʌp /</p>
-      <p>n. 弹出式; [棒]内野飞球; 自动起跳式装置</p>
-      <p>adj. 弹起的; 有自动起跳装置的</p>
-    </mt-popup>
     <mt-popup v-model="popupVisible2" position="top" class="mint-popup-2" :modal="false">
       <p>更新成功</p>
     </mt-popup>
@@ -26,76 +18,54 @@
 </template>
 
 <style>
-  @component-namespace page {
-    @component popup {
-      @descendent wrapper {
-        padding: 0 20px;
-        position: absolute 50% * * *;
-        width: 100%;
-        transform: translateY(-50%);
-        button:not(:last-child) {
-          margin-bottom: 20px;
-        }
-      }
+  .page-popup .page-popup-wrapper{
+    padding: 0 20px;
+    top: 50%;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .page-popup p {
+    margin: 0;
+  }
+  .page-popup  .mint-popup-2 {
+    width: 100%;
+    height: 50px;
+    top: 40px;
+    text-align: center;
+    background-color: rgba(0,0,0,.7);
+    backface-visibility: hidden;
+  }
 
-      .mint-popup-1 {
-        width: 200px;
-        border-radius: 8px;
-        padding: 10px;
-        transform: translate(-50%, 0);
+  .page-popup  .mint-popup-2 p {
+    line-height: 50px;
+    color: #fff;
+  }
 
-        h1 {
-          font-size: 20px;
-          color: #26a2ff;
-        }
+  .page-popup .mint-popup-3 {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
 
-        p {
-          margin-bottom: 10px;
-        }
-      }
-
-      .mint-popup-1::before {
-        triangle: 10px top #fff;
-        content: '';
-        position: absolute;
-        top: -20px;
-        right: 50px;
-      }
-
-      .mint-popup-2 {
-        width: 100%;
-        height: 50px;
-        text-align: center;
-        background-color: rgba(0,0,0,.7);
-        backface-visibility: hidden;
-      }
-
-      .mint-popup-2 p {
-        line-height: 50px;
-        color: #fff;
-      }
-
-      .mint-popup-3 {
-        width: 100%;
-        height: 100%;
-        background-color: #fff;
-      }
-
-      .mint-popup-3 .mint-button {
-        position: absolute;
-        width: 90%;
-        top: 50%;
-        left: 5%;
-        transform: translateY(-50%);
-      }
-
-      .mint-popup-4 {
-        width: 100%;
-        .picker-slot-wrapper, .picker-item {
-          backface-visibility: hidden;
-        }
-      }
-    }
+  .page-popup  .mint-popup-3 .mint-button {
+    position: absolute;
+    width: 90%;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+  }
+  .page-popup  .mint-popup-4 {
+    width: 100%;
+    bottom: 46px;
+  }
+  .page-popup .picker-slot-wrapper, .picker-item {
+    backface-visibility: hidden;
+  }
+  .page-popup button{
+    margin-bottom: 20px;
   }
 </style>
 
@@ -103,7 +73,6 @@
   export default {
     data() {
       return {
-        popupVisible1: false,
         popupVisible2: false,
         popupVisible3: false,
         popupVisible4: false,
@@ -137,7 +106,6 @@
         }
       }
     },
-
     methods: {
       onDateChange(picker, values) {
         if (values[0] > values[1]) {
@@ -147,9 +115,5 @@
         this.dateEnd = values[1];
       }
     },
-
-    mounted() {
-      this.buttonBottom = this.$refs.button.$el.getBoundingClientRect().bottom;
-    }
   };
 </script>

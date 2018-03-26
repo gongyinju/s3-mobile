@@ -28,11 +28,6 @@
         "icon": "popup"
       },
       {
-        "path": "/swipe",
-        "name": "Swipe",
-        "icon": "swipe"
-      },
-      {
         "path": "/lazyload",
         "name": "Lazy load",
         "icon": "lazyload"
@@ -106,11 +101,6 @@
         "path": "/tab-container",
         "name": "TabContainer",
         "icon": "panel"
-      },
-      {
-        "path": "/search",
-        "name": "Search",
-        "icon": "searchbar"
       }
     ]
   },
@@ -119,14 +109,53 @@
     "list": [
       {
         "path": "/s3Action",
-        "name": "s3Action",
-        "icon": "s3Action"
+        "name": "s3Action"
       },
       {
         "path": "/s3Banner",
-        "name": "s3Banner",
-        "icon": "s3Banner"
+        "name": "s3Banner"
+      },
+      {
+        "path": "/s3Bottom",
+        "name": "s3Bottom"
+      },
+      {
+        "path": "/s3Card",
+        "name": "s3Card"
+      },
+      {
+        "path": "/s3Date",
+        "name": "s3Date"
+      },
+      {
+        "path": "/s3FirstLogin",
+        "name": "s3FirstLogin"
+      },
+      {
+        "path": "/s3FormValCode",
+        "name": "s3FormValCode"
+      },
+      {
+        "path": "/s3FunctionPanel",
+        "name": "s3FunctionPanel"
+      },
+      {
+        "path": "/s3Login",
+        "name": "s3Login"
+      },
+      {
+        "path": "/s3Popup",
+        "name": "s3Popup"
+      },
+      {
+        "path": "/s3Search",
+        "name": "s3Search"
+      },
+      {
+        "path": "/s3Upload",
+        "name": "s3Upload"
       }
+
     ]
   },
   {

@@ -1,7 +1,5 @@
 <template>
   <div class="page-badge">
-    <div class="page-title">Badge</div>
-
     <div class="page-badge-container">
       <div class="page-part">
         <mt-badge type="primary" size="large">30</mt-badge>
@@ -45,7 +43,10 @@ export default {
 </script>
 
 <style lang="css">
-  .page-badge-container {
-    padding: 0 10px;
+  .page-badge{
+    padding-top: 60px;
+  }
+  .page-badge-container .page-part{
+    padding:10px;
   }
 </style>

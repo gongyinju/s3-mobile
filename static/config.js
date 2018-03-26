@@ -1,5 +1,3 @@
-/*var baseUrl = 'http://localhost:8080/mocks';
-s3.setURL(baseUrl);*/
 var config = {};
 config.basic = {};
 config.display = {};

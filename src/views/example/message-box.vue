@@ -1,6 +1,5 @@
 <template>
   <div class="page-msgbox">
-    <h1 class="page-title">Message Box</h1>
     <div class="page-msgbox-wrapper">
       <mt-button @click.native="openAlert" size="large">打开 alert 提示框</mt-button>
       <mt-button @click.native="openConfirm" size="large">打开 confirm 提示框</mt-button>
@@ -10,18 +9,17 @@
 </template>
 
 <style>
-  @component-namespace page {
-    @component msgbox {
-      @descendent wrapper {
-        padding: 0 20px;
-        position: absolute 50% * * *;
-        width: 100%;
-        transform: translateY(-50%);
-        button:not(:last-child) {
-          margin-bottom: 20px;
-        }
-      }
-    }
+  .page-msgbox .page-msgbox-wrapper {
+    padding: 0 20px;
+    top: 50%;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .page-msgbox button{
+    margin-bottom: 20px;
   }
 </style>
 

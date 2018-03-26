@@ -1,6 +1,5 @@
 <template>
   <div class="page-field">
-    <div class="page-title">Field</div>
     <div class="page-part">
       <mt-field label="用户名" placeholder="请输入用户名" :attr="{ maxlength: 10 }"></mt-field>
       <mt-field label="邮箱" placeholder="请输入邮箱" type="email"></mt-field>
@@ -25,14 +24,17 @@
 
     <div class="page-part">
       <mt-field label="验证码" placeholder="输入验证码">
-        <!--<img src="../assets/100x100.png" height="48px" width="100px">-->
+        <!--验证码图片-->
+        <img src="http://file.gongyinju.com/group1/M00/00/5B/bQYdm1mH6MCARxkxAABfhUPd7bM324.jpg" height="48px" width="100px">
       </mt-field>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'page-field'
-};
-</script>
+
+<style>
+  .page-field{
+    padding-top: 40px;
+    padding-bottom: 46px;
+  }
+</style>

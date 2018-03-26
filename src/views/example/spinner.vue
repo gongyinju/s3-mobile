@@ -1,6 +1,5 @@
 <template>
   <div class="page-spinner">
-    <div class="page-title">Spinner</div>
 
     <mt-cell title="snake">
       <mt-spinner color="#26a2ff" type="snake"></mt-spinner>
@@ -33,11 +32,10 @@ export default {
 </script>
 
 <style lang="css">
-  @component-namespace page {
-    @component spinner {
-      .mint-cell {
+  .page-spinner .mint-cell {
         min-height: 50px;
-      }
-    }
+  }
+  .page-spinner{
+    padding-top: 40px;
   }
 </style>

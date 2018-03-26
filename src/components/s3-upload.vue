@@ -26,9 +26,10 @@
       </div>
     </div>
 
-    <mt-progress :value="progress" v-if="progressShow">
-      <!--<div slot="end">{{Math.ceil(precent)}}%</div>-->
+    <mt-progress :value="progress" v-if="progressShow"  transition="progress-fade">
+      <div slot="end">{{progress}}%</div>
     </mt-progress>
+
   </div>
 </template>
 <script>

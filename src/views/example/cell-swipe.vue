@@ -1,10 +1,9 @@
 <template>
   <div class="page-cell">
-    <div class="page-title">Cell Swipe</div>
     <mt-cell-swipe
-      v-for="n in 15"
+      v-for="n in 10"
       :right="rightButtons"
-      title="swipe me">
+      title="向左滑动">
     </mt-cell-swipe>
   </div>
 </template>
@@ -32,3 +31,8 @@
     }
   };
 </script>
+<style>
+  .page-cell{
+    padding-top: 40px;
+  }
+</style>
