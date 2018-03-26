@@ -85,7 +85,7 @@ export default {
       }
 
       getPublicKey()
-      .then( data => {
+      .then(data => {
         let pwd = s3.RSAEncrypt(data.modulus,data.exponent,self.password)
         let param = {
           loginName: self.loginName,
@@ -96,14 +96,13 @@ export default {
       })
       .then(result => {
         if (result.retCode === '200'){
-          self.$store.commit('userLogin')
-          self.$store.dispatch('getUserState')
-
           let firstLoginFlag = true
           if (result.isFirstLogin === 'true') {
             firstLoginFlag = true
             self.$store.commit('userFirstLogin',firstLoginFlag)
           } else {
+            self.$store.commit('userLogin')
+            self.$store.dispatch('getUserState')
             self.$router.push(self.success)
           }
         } else {

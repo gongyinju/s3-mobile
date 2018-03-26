@@ -29,7 +29,7 @@
           {icon:'icon-chanpin',text:'JS组件',pathUrl:'/jsCom'},
           {icon:'icon-chanpin',text:'CSS组件',pathUrl:'/cssCom'},
           {icon:'icon-chanpin',text:'S3组件',pathUrl:'/s3Com'},
-          {icon:'icon-shouye-copy-copy-copy',text:'用户信息',pathUrl:'/user'},
+          {icon:'icon-gerenxinxi',text:'用户信息',pathUrl:'/user'},
         ],
         otherModules: []
       }

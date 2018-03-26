@@ -18,6 +18,7 @@ try {
       name: '登录',
       meta: {
         notRequireAuth: true,
+        allowBack:false
       },
       component: LoginView
     }
@@ -117,9 +118,16 @@ var router = new VueRouter({
  *
 */
 router.beforeEach((to, from, next) => {
+  let backState = ''
+  if(to.meta.backState){
+    backState = to.meta.backState
+  }else if(to.path !== '/login' && to.path !== '/home' && to.path !== '/'){
+    backState = from.path
+  }
+
   let page = {
     title: to.name,
-    backState: to.meta.backState || '',
+    backState: backState,
     goHome: to.meta.goHome || false
   }
   store.commit('pageinfo', page)
