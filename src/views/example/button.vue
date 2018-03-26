@@ -1,6 +1,5 @@
 <template>
   <div class="page-button">
-    <h1 class="page-title">Button</h1>
     <div class="page-button-group">
       <mt-button size="large">default</mt-button>
       <mt-button size="large" type="primary">primary</mt-button>
@@ -31,33 +30,24 @@
       <mt-button plain size="large" type="danger">danger</mt-button>
     </div>
 
-    <!--<div class="page-button-group">
+    <div class="page-button-group">
       <mt-button>
-        <img src="../assets/100x100.png" height="20" width="20" slot="icon">
+        <img src="http://file.gongyinju.com/group1/M00/00/5B/bQYdm1mH6MCARxkxAABfhUPd7bM324.jpg" height="20" width="20" slot="icon">
         带自定义图标
       </mt-button>
-    </div>-->
+    </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'button'
-};
-</script>
 
 <style lang="css">
-  @component-namespace page {
-    @component button {
-      padding: 0 15px 15px;
-
-      @descendent group {
-        margin-bottom: 15px;
-
-        & > * {
-          margin-bottom: 15px;
-        }
-      }
-    }
+  .page-button {
+    padding:50px 15px;
+  }
+  .page-button-group {
+    margin-bottom: 15px;
+  }
+  .page-button-group  button{
+    margin-bottom: 15px;
   }
 </style>

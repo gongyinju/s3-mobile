@@ -8,7 +8,7 @@
   export default {
     props:{
       date: {
-        type: Number,
+        required: true
       },
       fmt: {
         type: String,

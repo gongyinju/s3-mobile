@@ -21,6 +21,9 @@
   .page-indicator button{
     margin-bottom: 20px;
   }
+  .mint-indicator-wrapper {
+    z-index: 9;
+  }
 </style>
 
 <script type="text/babel">
@@ -29,7 +32,6 @@
   export default {
     methods: {
       openIndicator() {
-        console.log(111)
         Indicator.open();
         setTimeout(() => Indicator.close(), 2000);
       },

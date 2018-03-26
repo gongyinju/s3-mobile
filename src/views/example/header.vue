@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="page-header">
+
     <mt-header fixed title="固定在顶部"></mt-header>
     <div class="page-header-main">
-      <div class="page-title">Header</div>
       <mt-header title="标题过长会隐藏后面的内容啊哈哈哈哈">
         <router-link to="/" slot="left">
           <mt-button icon="back">返回</mt-button>
@@ -60,16 +60,11 @@ export default {
 </script>
 
 <style lang="css">
-  @component-namespace page {
-    @component header {
-      @descendent main {
-        margin-top: 50px;
-        min-height: 120vh;
-
-        > * {
-          margin-bottom: 15px;
-        }
-      }
-    }
+  .page-header  .page-header-main {
+      margin-top: 50px;
+      min-height: 120vh;
+  }
+  .mint-header{
+    margin-bottom: 15px;
   }
 </style>

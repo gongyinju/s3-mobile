@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-tab-containerBox">
     <div class="nav">
       <mt-button size="small" @click.native.prevent="active = 'tab-container1'">tab 1</mt-button>
       <mt-button size="small" @click.native.prevent="active = 'tab-container2'">tab 2</mt-button>
@@ -33,6 +33,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+  .page-tab-containerBox{
+    padding-top: 40px;
+  }
   .item {
     display: inline-block;
   }

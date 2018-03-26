@@ -1,6 +1,5 @@
 <template>
   <div class="page-picker">
-    <h1 class="page-title">Picker</h1>
     <div class="page-picker-wrapper">
       <mt-picker :slots="yearSlot" @change="onYearChange" :visible-item-count="3"></mt-picker>
     </div>
@@ -15,32 +14,22 @@
       <mt-picker :slots="addressSlots" @change="onAddressChange" :visible-item-count="5"></mt-picker>
     </div>
     <p class="page-picker-desc">地址: {{ addressProvince }} {{ addressCity }}</p>
-    
+
     <!-- defaultIndex 参数变化 -->
     <div class="page-picker-wrapper">
       <mt-picker :slots="numberSlot" @change="onNumberChange" :visible-item-count="3"></mt-picker>
     </div>
-    <p class="page-picker-desc">动态默认选项: {{ number }}</p>
+    <p class="page-picker-desc">动态默认选项: {{ number }}</p>
   </div>
 </template>
 
 <style>
-  @component-namespace page {
-    @component picker {
-      padding: 0 10px 20px;
-      @descendent wrapper {
-        background-color: #fff;
-        text-align: center;
-      }
-
-      @descendent desc {
-        margin: 10px 0 50px;
-      }
-
-      .mint-button {
-        margin-top: 15px;
-      }
-    }
+  .page-picker{
+    padding-bottom: 46px;
+  }
+  .page-picker  .page-picker-desc{
+    padding: 10px;
+    background: #fafafa;
   }
 </style>
 

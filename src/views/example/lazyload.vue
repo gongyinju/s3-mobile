@@ -1,6 +1,5 @@
 <template>
   <div class="page-lazyload">
-    <h1 class="page-title">Lazy Load</h1>
     <ul class="page-lazyload-list">
       <li class="page-lazyload-listitem" v-for="item in list">
         <img v-lazy="item" class="page-lazyload-image">
@@ -10,30 +9,28 @@
 </template>
 
 <style>
-  @component-namespace page {
-    @component lazyload {
-      @descendent list {
-        text-align: center;
-      }
+  .page-lazyload .page-lazyload-list {
+    text-align: center;
+    padding: 0;margin: 0;
+    padding-top: 60px;
+  }
 
-      @descendent listitem {
-        width: 300px;
-        margin: 0 auto;
-        margin-bottom: 10px;
-        background-color: #ddd;
-      }
+  .page-lazyload .page-lazyload-list .page-lazyload-listitem {
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    background-color: #ddd;
+  }
 
-      @descendent image {
-        display: block;
-        width: 100%;
-      }
+  .page-lazyload .page-lazyload-list img {
+    display: block;
+    width: 100%;
+  }
 
-      @descendent image[lazy=loading] {
-        width: 40px;
-        height: 300px;
-        margin: auto;
-      }
-    }
+  .page-lazyload .page-lazyload-list image[lazy=loading] {
+    width: 40px;
+    height: 300px;
+    margin: auto;
   }
 </style>
 

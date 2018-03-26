@@ -1,6 +1,5 @@
 <template>
   <div class="page-navbar">
-    <div class="page-title">Navbar</div>
     <mt-navbar class="page-part" v-model="selected">
       <mt-tab-item id="1">选项一</mt-tab-item>
       <mt-tab-item id="2">选项二</mt-tab-item>
@@ -36,3 +35,8 @@ export default {
   }
 };
 </script>
+<style>
+  .page-navbar{
+    padding-top: 40px;
+  }
+</style>

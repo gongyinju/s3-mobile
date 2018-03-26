@@ -10,19 +10,20 @@
 </template>
 
 <style>
-  @component-namespace page {
-    @component actionsheet {
-      @descendent wrapper {
-        padding: 0 20px;
-        position: absolute 50% * * *;
-        width: 100%;
-        transform: translateY(-50%);
-
-        button:first-child {
-          margin-bottom: 20px;
-        }
-      }
-    }
+  .page-actionsheet .page-actionsheet-wrapper {
+    padding: 0 20px;
+    top: 50%;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .page-actionsheet button{
+    margin-bottom: 20px;
+  }
+  .page-actionsheet .mint-actionsheet {
+    bottom: 47px;
   }
 </style>
 

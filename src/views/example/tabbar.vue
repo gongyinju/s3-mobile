@@ -1,7 +1,6 @@
 <template>
   <div class="page-tabbar">
     <div class="page-wrap">
-      <div class="page-title">Tabbar</div>
       <div>
         <mt-cell class="page-part" title="当前选中" :value="selected" />
       </div>
@@ -27,24 +26,20 @@
       </mt-tab-container>
     </div>
 
-    <!--<mt-tabbar v-model="selected" fixed>
+    <mt-tabbar v-model="selected" fixed class="tabbar">
       <mt-tab-item id="外卖">
-        &lt;!&ndash;<img slot="icon" src="../assets/100x100.png">&ndash;&gt;
         外卖
       </mt-tab-item>
       <mt-tab-item id="订单">
-        &lt;!&ndash;<img slot="icon" src="../assets/100x100.png">&ndash;&gt;
         订单
       </mt-tab-item>
       <mt-tab-item id="发现">
-        &lt;!&ndash;<img slot="icon" src="../assets/100x100.png">&ndash;&gt;
         发现
       </mt-tab-item>
       <mt-tab-item id="我的">
-        &lt;!&ndash;<img slot="icon" src="../assets/100x100.png">&ndash;&gt;
         我的
       </mt-tab-item>
-    </mt-tabbar>-->
+    </mt-tabbar>
   </div>
 </template>
 
@@ -63,11 +58,14 @@ export default {
   .page-tabbar {
     overflow: hidden;
     height: 100vh;
+    padding-top: 40px;
   }
-
   .page-wrap {
     overflow: auto;
     height: 100%;
     padding-bottom: 100px;
+  }
+  .page-tabbar .tabbar{
+    bottom:46px;
   }
 </style>
