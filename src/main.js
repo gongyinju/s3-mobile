@@ -8,8 +8,10 @@ import {HttpProtptype, AsyncComponent, JSLoader, CSSLoader} from './global'
 
 import Mint from'mint-ui'
 import'mint-ui/lib/style.css'
-Vue.use(Mint);
+
+
 // global plugin
+Vue.use(Mint)
 Vue.use(HttpProtptype)
 Vue.use(AsyncComponent)
 Vue.use(JSLoader)
@@ -19,14 +21,14 @@ Vue.config.productionTip = false
 
 // dynamic router
 const loader = function (resolve, url) {
-  if (!s3.istore.getItemLocal[url]) {
+  if (!s3.istore.getLocal(url)) {
     axios.get(url).then(function (res) {
       let asyncCom = new Function(`return ${res.data}`)()
-      s3.istore.setItemLocal(url, asyncCom)
+      s3.istore.setLocal(url, asyncCom)
       resolve(asyncCom)
     })
   } else {
-    resolve(s3.istore.getItemLocal[url])
+    resolve(s3.istore.getLocal(url))
   }
 }
 

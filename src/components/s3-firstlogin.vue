@@ -46,7 +46,7 @@
     },
     computed: {
       user () {
-        return this.$store.state.currentUser
+        return this.$store.state.currentUser || {loginName:''}
       },
       appid () {
         return this.$store.state.appid
