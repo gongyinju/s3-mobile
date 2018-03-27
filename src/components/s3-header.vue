@@ -1,6 +1,6 @@
 <template>
   <div >
-    <mt-header :title="headTitle" fixed>
+    <mt-header :title="headTitle" fixed  v-if="headTitle">
       <router-link  v-if="showGoBack" slot="left" :to="backState" >
         <mt-button icon="back" ></mt-button>
       </router-link>

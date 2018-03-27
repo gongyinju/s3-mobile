@@ -15,7 +15,7 @@ try {
   loginRoutes = [
     {
       path: '/login',
-      name: '登录',
+      name: '',
       meta: {
         notRequireAuth: true,
         allowBack:false
@@ -30,7 +30,7 @@ try {
 let routes = [
   {
     path: '/',
-    name: '首页',
+    name: '',
     component: Home,
   },
   {

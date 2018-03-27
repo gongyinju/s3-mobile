@@ -4,26 +4,12 @@
     <div class='formBox'>
       <div class="sendCode">
         <em>|</em>
-        <button @click="getValidateCode(phone)" class="skin-color" :disabled="countingDown || !isPhoneValid">{{getCodeText}}</button>
+        <button @click="getValidateCode(phone,loginName)" class="skin-color" :disabled="countingDown || !isPhoneValid">{{getCodeText}}</button>
       </div>
       <mt-field label="手机号" placeholder="新手机号" type="number" v-model.trim="phone" class="phone"></mt-field>
       <mt-field label="验证码" placeholder="输入验证码" type="number" v-model.trim="validatecode"></mt-field>
 
     </div>
-
-    <div class="" v-show='showTip'>
-      <div>
-        <div>请输入正确的手机号</div>
-      </div>
-    </div>
-
-    <div class="" v-show ='showTip'>
-      <div>
-        <div> 请输入6位验证码</div>
-      </div>
-    </div>
-
-
 
   </div>
 </template>
@@ -44,8 +30,6 @@
         //验证码
         validatecode:null,
         getCodeText:'获取验证码',
-        //是否展示提示语
-        showTip:false,
         //按钮是否禁用
         countingDown:false,
         //倒计时
@@ -74,15 +58,12 @@
         //显示提示信息
         Toast('短信验证码以向您的手机发送，请在输入框内填入您收到的验证码！');
 
-        /*s3.ajax('/validateCode',param,'usermanage')
-        .then(function(result){
+        s3.ajax('/validateCode',param,'usermanage')
+        .then( result => {
           if(result.retCode !== "200"){
             Toast(result.retMsg||"您的账号暂不能使用忘记密码功能，请联系企业咨询!");
-            this.showTip = false;
-          }else{
-            this.showTip = true;
           }
-        })*/
+        })
 
         //点击之后 倒计时
         const f =  () => {

@@ -43,14 +43,6 @@
 
 <script>
 export default {
-  name: 'header',
-
-  data() {
-    return {
-
-    };
-  },
-
   methods: {
     handleClose() {
       alert('close this page');

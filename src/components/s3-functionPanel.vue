@@ -1,18 +1,15 @@
 <template>
   <div class="s3-functionPanel " id="grid">
     <ul>
-      <li v-for="(item,index) in modules" >
-        <router-link :to="item.pathUrl" solt="" tag="span">
-          <i class="iconfont" :class="item.icon"></i>
-          <p v-text="item.text" ></p>
-        </router-link>
-      </li>
-      <li v-for="(item,index) in otherModules" >
-        <router-link :to="item.pathUrl"  tag="span">
-          <i class="iconfont" :class="item.icon"></i>
-          <p v-text="item.text" ></p>
-        </router-link>
-      </li>
+      <router-link :to="item.pathUrl" v-for="(item,index) in modules" tag="li">
+        <i class="iconfont" :class="item.icon"></i>
+        <p v-text="item.text" ></p>
+      </router-link>
+
+      <router-link :to="item.pathUrl" tag="li" v-for="(item,index) in otherModules" >
+        <i class="iconfont" :class="item.icon"></i>
+        <p v-text="item.text" ></p>
+      </router-link>
     </ul>
   </div>
 </template>
