@@ -1,6 +1,6 @@
 export default {
     getUserState (context,appid) {
-    	s3.ajax('/user/userData',{},appid).then(result => {
+    	s3.ajax('/user/info',{},appid).then(result => {
 			if(result.retCode == '500') {
 				context.commit('userLogout')
 			} else {

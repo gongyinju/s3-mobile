@@ -133,6 +133,7 @@ router.beforeEach((to, from, next) => {
   }
   store.commit('pageinfo', page)
 
+  console.log(store.state)  
   // 在home路由中配置的meta
   if(config.basic.login && !to.meta.notRequireAuth && !store.getters.isLogedIn) {
     store.commit('userLogout')
