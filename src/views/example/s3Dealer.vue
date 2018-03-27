@@ -1,14 +1,14 @@
 <template>
   <div class="demo-s3Popup">
-    <s3-popup :popup-list="dealerList" ></s3-popup>
+    <s3-dealer :popup-list="dealerList" ></s3-dealer>
   </div>
 </template>
 
 <script>
-  import s3Popup from '@/components/s3-popup.vue'
+  import s3Dealer from '@/components/s3-dealer.vue'
   export default {
     components: {
-      s3Popup
+      s3Dealer
     },
     data () {
       return {

@@ -1,14 +1,14 @@
 <template>
   <div class="s3-functionPanel " id="grid">
     <ul>
-      <router-link :to="item.pathUrl" v-for="(item,index) in modules" tag="li">
-        <i class="iconfont" :class="item.icon"></i>
-        <p v-text="item.text" ></p>
+      <router-link :to="item.menuUrl" v-for="(item,index) in modules" tag="li">
+        <i class="iconfont icon-chanpin" :class="item.menuIcon"></i>
+        <p v-text="item.menuName" ></p>
       </router-link>
 
-      <router-link :to="item.pathUrl" tag="li" v-for="(item,index) in otherModules" >
-        <i class="iconfont" :class="item.icon"></i>
-        <p v-text="item.text" ></p>
+      <router-link :to="item.menuUrl" tag="li" v-for="(item,index) in otherModules" >
+        <i class="iconfont" :class="item.menuIcon"></i>
+        <p v-text="item.menuName" ></p>
       </router-link>
     </ul>
   </div>

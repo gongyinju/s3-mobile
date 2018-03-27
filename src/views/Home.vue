@@ -18,19 +18,8 @@
     data(){
       return{
         images:[],
-        gridlist:[
-          {icon:'icon-chanpin',text:'js组件',pathUrl:'/jsCom'},
-          {icon:'icon-chanpin',text:'css组件',pathUrl:'/cssCom'},
-          {icon:'icon-chanpin',text:'s3组件',pathUrl:'/s3Com'},
-          {icon:'icon-chanpin',text:'form组件',pathUrl:'/formCom'}
-        ],
-        bottom: [
-          {icon:'icon-shouye-copy-copy-copy',text:'首页',pathUrl:'/'},
-          {icon:'icon-chanpin',text:'JS组件',pathUrl:'/jsCom'},
-          {icon:'icon-chanpin',text:'CSS组件',pathUrl:'/cssCom'},
-          {icon:'icon-chanpin',text:'S3组件',pathUrl:'/s3Com'},
-          {icon:'icon-chanpin',text:'form组件',pathUrl:'/formCom'},
-        ],
+        gridlist:[],
+        bottom: [],
         otherModules: []
       }
     },
@@ -44,7 +33,17 @@
         .then(res =>{
           this.images = res.images;
         })
-      //获得特色九宫格数据
+      //获得九宫格数据
+      s3.ajax('/getMobileFun',{},'s3core')
+        .then(res =>{
+          this.gridlist = res.menuList;
+          //获得底部栏数据
+          res.menuList.map(item => {
+            if(item.bottom == '1'){
+              this.bottom.push(item)
+            }
+          })
+        })
     },
   }
 </script>
