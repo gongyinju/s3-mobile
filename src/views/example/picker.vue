@@ -25,7 +25,7 @@
 
 <style>
   .page-picker{
-    padding-bottom: 46px;
+    padding-top: 40px;
   }
   .page-picker  .page-picker-desc{
     padding: 10px;

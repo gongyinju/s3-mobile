@@ -144,8 +144,8 @@
         "name": "s3Login"
       },
       {
-        "path": "/s3Popup",
-        "name": "s3Popup"
+        "path": "/s3Dealer",
+        "name": "s3Dealer"
       },
       {
         "path": "/s3Search",

@@ -1,9 +1,9 @@
 <template>
   <div>
       <mt-navbar :value="selected" >
-        <mt-tab-item :id="item.pathUrl" v-for="item in bottomlist" @click.stop.prevent>
-          <i class="iconfont" :class="item.icon"></i>
-          <router-link :to="item.pathUrl" tag="div">{{item.text}}</router-link>
+        <mt-tab-item :id="item.menuUrl" v-for="item in bottomlist" @click.stop.prevent>
+          <i class="iconfont icon-chanpin" :class="item.menuIcon"></i>
+          <router-link :to="item.menuUrl" tag="div">{{item.menuName}}</router-link>
         </mt-tab-item>
       </mt-navbar>
   </div>
@@ -16,8 +16,7 @@
         type: Array,
         default: function () {
           return [
-            {icon:'icon-shouye-copy-copy-copy',text:'首页',pathUrl:'/'},
-            {icon:'icon-guanxi',text:'个人中心',pathUrl:'/person'},
+            {menuIcon:'icon-guanxi',menuName:'个人中心',menuUrl:'/person'},
           ]
         }
       },
@@ -25,6 +24,9 @@
         type: String,
         default: '/'
       },
+    },
+    created(){
+      this.bottomlist.unshift({menuIcon:'icon-shouye-copy-copy-copy',menuName:'首页',menuUrl:'/'})
     }
   }
 </script>
