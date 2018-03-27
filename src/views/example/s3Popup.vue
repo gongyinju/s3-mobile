@@ -20,9 +20,7 @@
       s3.ajax('/getDealerList',{},'s3core')
         .then(res=>{
           let all = {'customerId':undefined,'userName':'全部经销商'};
-          this.$store.commit('setCurrentDealer',all)
           this.dealerList = [all].concat(res.dealerList);
-          console.log(this.$store.state.currentDealer)
         })
     },
   }

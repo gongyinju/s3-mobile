@@ -51,11 +51,7 @@
         default: function () {
           return []
         }
-      },
-      //展示经销商名称
-      /*currentName:{
-        type:String
-      }*/
+      }
     },
     data() {
       return {
@@ -66,7 +62,6 @@
     computed: {
       //获取当前经销商
       currentDealer () {
-        console.log('computed')
         return this.$store.state.currentDealer
       },
     },
@@ -82,8 +77,8 @@
       }
     },
     created(){
-      console.log('created');
-
+      let all = {'customerId':undefined,'userName':'全部经销商'};
+      this.$store.commit('setCurrentDealer',all)
     },
   };
 </script>
@@ -117,7 +112,6 @@
   .s3-popup .mint-popup-dealer {
     width: 100%;
     height: 100%;
-    padding-top: 80px;
     background-color: #fff;
   }
   .s3-popup .mint-popup-dealer button {
