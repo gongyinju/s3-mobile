@@ -4,9 +4,8 @@ export default {
     state.appid = appid
   },
   setCurrentUser (state, user) {
-    if (user !== undefined) {
-      state.currentUser = user
-    }
+    s3.istore.set('currentUser',user)
+    state.currentUser = user
   },
   setCurrentDealer (state, dealer) {
   	if (dealer !== undefined) {
@@ -25,9 +24,12 @@ export default {
   },
 
   userLogin (state) {
+    s3.istore.set('isLogedIn',true)
   	state.isLogedIn = true
   },
   userLogout (state) {
+    s3.istore.remove('currentUser')
+    s3.istore.remove('isLogedIn')
   	state.isLogedIn = false
     state.currentUser = null
   },

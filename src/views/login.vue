@@ -32,6 +32,9 @@ export default {
   components: {
   	s3Login,
   	s3FirstLogin
+  },
+  mounted () {
+    this.$store.commit('userLogout')
   }
 }
 </script>

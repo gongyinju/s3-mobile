@@ -118,6 +118,7 @@ var router = new VueRouter({
  *
 */
 router.beforeEach((to, from, next) => {
+
   let backState = ''
   if(to.meta.backState){
     backState = to.meta.backState
@@ -133,11 +134,11 @@ router.beforeEach((to, from, next) => {
   store.commit('pageinfo', page)
 
   // 在home路由中配置的meta
-  if(!to.meta.notRequireAuth && !store.state.isLogedIn) {
-      store.commit('userLogout')
-      next({
-        path: '/login'
-      })
+  if(config.basic.login && !to.meta.notRequireAuth && !store.getters.isLogedIn) {
+    store.commit('userLogout')
+    next({
+      path: '/login'
+    })
   }else{
     next()
   }

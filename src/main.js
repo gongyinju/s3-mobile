@@ -61,21 +61,30 @@ const getContextPath = function(){
 }
 
 
-//set base URL
-if(config.basic['baseUrl']){
-  s3.setBaseURL(config.basic.baseUrl)
-}
-if(!config.basic['custid']){
-  config.basic['custid'] = getContextPath()
+let appid = getContextPath()
+try {
+  //set base URL
+  if(config.basic['baseUrl']){
+    s3.setBaseURL(config.basic.baseUrl)
+  }
+  if(config.basic['custid']){
+    appid = config.basic['custid']
+  }
+}catch(e){
+  window.config = {}
+  config.basic = {}
+  config.basic['custid'] = appid
 }
 
-const appid = config.basic.custid
 
 // 向服务器请求config配置
-s3.ajax('/config/router',{},appid).then(function (result) {
-  if(result)
+s3.ajax('/config/router',{},appid)
+.then(result => {
+  if(result){
     dynamicRouter(router, result)
-  /* eslint-disable no-new */
+  }
+
+  //实例化
   new Vue({
     el: '#app',
     router,
@@ -85,11 +94,14 @@ s3.ajax('/config/router',{},appid).then(function (result) {
     mounted () {
       if(config.basic['login']){
         store.commit('setAppId',appid)
-        store.dispatch('getUserState',appid)
+        if(config.basic.login){
+          store.dispatch('getUserState',appid)
+        }   
       }
     }
   })
-}, function (error) {
+})
+.catch( error => {
   new Vue({
     el: '#app',
     router,
@@ -97,6 +109,6 @@ s3.ajax('/config/router',{},appid).then(function (result) {
     components: { App },
     template: '<App/>'
   })
-  // 没读取到配置 404
   throw new Error(error)
 })
+

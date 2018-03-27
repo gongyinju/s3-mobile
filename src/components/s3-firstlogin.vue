@@ -63,12 +63,6 @@
         this.$store.dispatch('getUserState')
         this.$router.push(this.success)
       }
-    },
-    mounted () {
-      let self = this
-      window.onpopstate = () => {
-        self.$store.commit('userLogout')
-      }
     }
   }
 </script>
