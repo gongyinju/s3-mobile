@@ -30,7 +30,6 @@
 
 <script>
   import { Toast } from 'mint-ui';
-  const TIME_COUNT = 60;
   export default {
     props: {
       loginName: {
@@ -40,13 +39,17 @@
     },
     data(){
       return{
+        //手机号
         phone:null,
+        //验证码
         validatecode:null,
         getCodeText:'获取验证码',
+        //是否展示提示语
         showTip:false,
+        //按钮是否禁用
         countingDown:false,
-        timer: null,
-        count: '',
+        //倒计时
+        count: 60,
       }
     },
     computed: {
@@ -67,11 +70,11 @@
         }
         if(loginName)
           param.loginName = loginName;
-        
+
         //显示提示信息
         Toast('短信验证码以向您的手机发送，请在输入框内填入您收到的验证码！');
 
-        s3.ajax('/validateCode',param,'usermanage')
+        /*s3.ajax('/validateCode',param,'usermanage')
         .then(function(result){
           if(result.retCode !== "200"){
             Toast(result.retMsg||"您的账号暂不能使用忘记密码功能，请联系企业咨询!");
@@ -79,26 +82,18 @@
           }else{
             this.showTip = true;
           }
-        })
-
+        })*/
 
         //点击之后 倒计时
-        if (!this.timer) {
-          this.count = TIME_COUNT;
-          this.countingDown = true;
-          this.timer = setInterval(() => {
-            if (this.count > 0 && this.count <= TIME_COUNT) {
-              this.count--;
-              this.getCodeText = `请等待${this.count}s`;
-            } else {
-              clearInterval(this.timer);
-              this.timer = null;
-              this.getCodeText = "获取验证码";
-              this.countingDown = false;
-            }
-          }, 1000)
+        const f =  () => {
+          this.count--;
+          this.getCodeText = `请等待 ${this.count} s`;
+          if (this.count == 0) {
+            this.getCodeText = "获取验证码";
+            this.countingDown = false;
+          }
         }
-
+        s3.timer.interval(f,0,1000,60000);
       },
 
     }
