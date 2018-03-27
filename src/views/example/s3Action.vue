@@ -19,6 +19,7 @@
     },
     methods: {
       changeCompany: function(e){
+        console.log(e)
         this.companyName =e.companyName;
       }
     },

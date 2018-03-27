@@ -38,7 +38,7 @@
     props: {
       uploadURL: {
         type: String,
-        default: 'http://localhost:8080/mocks'
+        required: true
       },
       fileLoading: {
         type: String,

@@ -25,7 +25,8 @@
         type: Array,
         default: function () {
           return []
-        }
+        },
+        required: true
       },
       currentName:{
         type:String
