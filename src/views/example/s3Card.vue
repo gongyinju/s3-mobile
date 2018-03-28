@@ -21,7 +21,7 @@
     },
     created(){
       //获取产品列表
-      s3.ajax('/getPorductInfo',{},'s3core')
+      s3.ajax('/product/getPorductInfo',{},'s3core')
         .then(res=>{
           this.products =  res.dataList;
         })

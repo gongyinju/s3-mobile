@@ -10,16 +10,23 @@
   export default {
     data () {
       return {
-        bottom:[
-          {icon:'icon-shouye-copy-copy-copy',text:'首页',pathUrl:'/'},
-          {icon:'icon-chanpin',text:'JS组件',pathUrl:'/jsCom'},
-          {icon:'icon-chanpin',text:'CSS组件',pathUrl:'/cssCom'},
-          {icon:'icon-chanpin',text:'S3组件',pathUrl:'/s3Com'},
-        ]
+        bottom:[]
       }
     },
     components: {
       s3Bottom
-    }
+    },
+    created(){
+      //获得九宫格数据
+      s3.ajax('/getMobileFun',{},'s3core')
+        .then(res =>{
+          //获得底部栏数据
+          res.menuList.map(item => {
+            if(item.bottom == '1'){
+              this.bottom.push(item)
+            }
+          })
+        })
+    },
   }
 </script>

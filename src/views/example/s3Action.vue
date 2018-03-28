@@ -25,7 +25,7 @@
     },
     created(){
       //获取分公司列表
-      s3.ajax('/getBranchCompanyInfo',{},'s3core')
+      s3.ajax('/user/branchCompany',{},'s3core')
         .then(res=>{
           this.branchCompany = res.branchCompany;
           this.branchCompany.forEach(item => {
