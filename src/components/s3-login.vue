@@ -11,12 +11,6 @@
           <mt-button type="primary" size="large" class="loginBtn" @click="doLogin">登录</mt-button>
         </form>
 
-        <!--表单验证-->
-        <div class="errorBox">
-          <div v-if="loginNameValidate"><i class="iconfont icon-zanwushuju mint-field-state is-warning"></i> 用户名不能为空</div>
-          <div v-if="passValidate"><i class="iconfont icon-zanwushuju mint-field-state is-warning"></i> 密码不能为空</div>
-        </div>
-
         <div class="signup">
           <p><span>{{fullyear}}</span> <span >{{company}}</span>版权所有</p>
         </div>
@@ -55,20 +49,20 @@ export default {
     },
     appid () {
       return this.$store.state.appid
-    },
-    /*loginNameValidate: function() {
-      if (this.loginName  == '')
-        return false;
-    },
-    passValidate: function() {
-      if (this.passValidate == '')
-        return false;
-    }*/
+    }
   },
   methods: {
     doLogin () {
       let self = this
 
+      if (this.loginName == ''){
+        MessageBox('提示', '用户名不能为空');
+        return false
+      }
+      if (this.password == ''){
+        MessageBox('提示', '密码名不能为空');
+        return false
+      }
 
       var getPublicKey = function() {
         return new Promise((resolve,reject) => {

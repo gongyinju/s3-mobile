@@ -154,7 +154,12 @@
       {
         "path": "/s3Upload",
         "name": "s3Upload"
+      },
+      {
+        "path": "/s3Quantity",
+        "name": "s3Quantity"
       }
+
 
     ]
   },
