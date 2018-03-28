@@ -1,7 +1,6 @@
 <template>
   <div class="demo-s3Quantity">
-    <s3-quantity ref="q"></s3-quantity>
-
+    <s3-quantity ref="qq"></s3-quantity>
   </div>
 </template>
 
@@ -15,7 +14,7 @@
       s3Quantity,
     },
     created(){
-      console.log(this.refs.q.quantity)
+      console.log(this.$refs.qq)
     }
   }
 </script>
