@@ -1,20 +1,21 @@
 <template>
   <transition class="animated" enter-active-class="slideInUp" enter-leave-class="slideOutDown" mode = "out-in">
     <div  class="loginBox">
-        <!--<div>
-          <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
-          <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
-        </div>
-        <mt-button type="primary" size="large" class="loginBtn">登录</mt-button>-->
       <div class="container">
         <img class="logo" alt="s3core" :src="logo" />
         <div>{{company}}</div>
         <form >
-          <input type="text" placeholder="请输入用户名" v-model="loginName" />
-          <input type="password" placeholder="请输入密码" v-model="password" />
+          <input type="text" placeholder="请输入用户名" v-model="loginName" required maxlength="30"/>
+          <input type="password" placeholder="请输入密码" v-model="password" required maxlength="16"/>
           <a href="#">忘记密码?</a>
           <mt-button type="primary" size="large" class="loginBtn" @click="doLogin">登录</mt-button>
         </form>
+
+        <!--表单验证-->
+        <div class="errorBox">
+          <div v-if="loginNameValidate"><i class="iconfont icon-zanwushuju mint-field-state is-warning"></i> 用户名不能为空</div>
+          <div v-if="passValidate"><i class="iconfont icon-zanwushuju mint-field-state is-warning"></i> 密码不能为空</div>
+        </div>
 
         <div class="signup">
           <p><span>{{fullyear}}</span> <span >{{company}}</span>版权所有</p>
@@ -54,20 +55,20 @@ export default {
     },
     appid () {
       return this.$store.state.appid
-    }
+    },
+    /*loginNameValidate: function() {
+      if (this.loginName  == '')
+        return false;
+    },
+    passValidate: function() {
+      if (this.passValidate == '')
+        return false;
+    }*/
   },
   methods: {
     doLogin () {
       let self = this
 
-      if (this.loginName == ''){
-        MessageBox('提示', '用户名不能为空' );
-        return false
-      }
-      if (this.password == ''){
-        MessageBox('提示', '密码名不能为空');
-        return false
-      }
 
       var getPublicKey = function() {
         return new Promise((resolve,reject) => {
@@ -76,7 +77,7 @@ export default {
           }
           s3.ajax('/publicKey',param,'usermanage').then(result => {
             if(result.retCode == '200') {
-              resolve(result) 
+              resolve(result)
             } else {
               reject(result)
             }
@@ -118,30 +119,30 @@ export default {
 </script>
 
 <style scoped>
-  .container {
+  .loginBox .container {
     position: relative;
     width: 100vw;
     height: 100vh;
     margin: 0 auto;
   }
 
-  .container img.logo {
+  .loginBox .container img.logo {
     display: block;
     margin: 0 auto;
     width: 100px;
     padding: 60px 0 10px 0;
   }
-  .container img.logo~div{
+  .loginBox .container img.logo~div{
     text-align: center;
     margin : 16px  0 30px 0;
   }
 
-  .container a {
+  .loginBox .container a {
     text-decoration: none;
     color: inherit;
   }
 
-  .container input[type="text"] {
+  .loginBox .container input[type="text"] {
     padding: 16px;
     border-radius: 4px 4px 0 0;
     background: transparent;
@@ -151,7 +152,7 @@ export default {
     width: 75%;
   }
 
-  .container input[type="password"] {
+  .loginBox .container input[type="password"] {
     padding: 16px;
     border-radius: 0 0 4px 4px;
     border: 1px solid #CFD0D1;
@@ -163,7 +164,7 @@ export default {
     width: 75%;
   }
 
-  .container .loginBtn {
+  .loginBox .container .loginBtn {
     display: block;
     margin: 0 auto;
     margin-top: 12px;
@@ -173,7 +174,7 @@ export default {
     font-weight: 700;
   }
 
-  .container form a{
+  .loginBox .container form a{
     display: block;
     width: 80%;
     margin: 0 auto;
@@ -182,17 +183,24 @@ export default {
     color: #5B5A5A;
   }
 
-  .container  div.signup {
+  .loginBox .container  div.signup {
     text-align: center;
     width: 100%;
     position: absolute;
     bottom:0;
   }
 
-  .container div.signup p {
+  .loginBox .container div.signup p {
     padding: 0px;
     margin: 4px 0px;
   }
-
-
+  .loginBox .container .errorBox div{
+    width: 80%;
+    text-align: left;
+    margin: auto;
+    margin-bottom: .5rem;
+  }
+  .loginBox .container .errorBox div>i{
+    margin: 0 .2rem 0 0;
+  }
 </style>

@@ -4,11 +4,10 @@
     <div class='formBox'>
       <div class="sendCode">
         <em>|</em>
-        <button @click="getValidateCode(phone,loginName)" class="skin-color" :disabled="countingDown || !isPhoneValid">{{getCodeText}}</button>
+        <button @click="getValidateCode(phone,loginName)" class="skin-color" :disabled="!isPhoneValid">{{getCodeText}}</button>
       </div>
-      <mt-field label="手机号" placeholder="新手机号" type="number" v-model.trim="phone" class="phone"></mt-field>
-      <mt-field label="验证码" placeholder="输入验证码" type="number" v-model.trim="validatecode"></mt-field>
-
+      <mt-field label="手机号" placeholder="新手机号" type="number" v-model.trim="phone" class="phone" :attr="{ maxlength: 11 }"></mt-field>
+      <mt-field label="验证码" placeholder="输入验证码" type="number" v-model.trim="validatecode" :attr="{ maxlength: 4,minlength:4 }"></mt-field>
     </div>
 
   </div>
@@ -30,8 +29,6 @@
         //验证码
         validatecode:null,
         getCodeText:'获取验证码',
-        //按钮是否禁用
-        countingDown:false,
         //倒计时
         count: 60,
       }
@@ -71,7 +68,6 @@
           this.getCodeText = `请等待 ${this.count} s`;
           if (this.count == 0) {
             this.getCodeText = "获取验证码";
-            this.countingDown = false;
           }
         }
         s3.timer.interval(f,0,1000,60000);
