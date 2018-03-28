@@ -1,6 +1,6 @@
 <template>
   <div class="demo-s3Firstlogin">
-    <s3-firstlogin></s3-firstlogin>
+    <s3-firstlogin success="/"></s3-firstlogin>
   </div>
 </template>
 

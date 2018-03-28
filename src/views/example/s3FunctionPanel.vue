@@ -9,22 +9,19 @@
   export default {
     data(){
       return{
-        gridlist:[
-          {icon:'icon-chanpin',text:'首页',pathUrl:'/jsCom'},
-          {icon:'icon-chanpin',text:'订货',pathUrl:'/cssCom'},
-          {icon:'icon-chanpin',text:'订单',pathUrl:'/s3Com'},
-          {icon:'icon-chanpin',text:'审批',pathUrl:'/formCom'},
-          {icon:'icon-chanpin',text:'发货单',pathUrl:'/cssCom'},
-          {icon:'icon-chanpin',text:'订单',pathUrl:'/s3Com'},
-          {icon:'icon-chanpin',text:'审核',pathUrl:'/formCom'},
-          {icon:'icon-chanpin',text:'发货单',pathUrl:'/cssCom'},
-          {icon:'icon-chanpin',text:'订单',pathUrl:'/s3Com'}
-        ]
+        gridlist:[]
       }
     },
     components: {
       s3Functionpanel
-    }
+    },
+    created(){
+      //获得九宫格数据
+      s3.ajax('/getMobileFun',{},'s3core')
+        .then(res =>{
+          this.gridlist = res.menuList;
+        })
+    },
   }
 </script>
 

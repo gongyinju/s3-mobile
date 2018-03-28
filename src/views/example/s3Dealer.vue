@@ -17,7 +17,7 @@
     },
     created(){
       //获取经销商列表
-      s3.ajax('/getDealerList',{},'s3core')
+      s3.ajax('/user/dealerList',{},'s3core')
         .then(res=>{
           let all = {'customerId':undefined,'userName':'全部经销商'};
           this.dealerList = [all].concat(res.dealerList);
