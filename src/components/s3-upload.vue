@@ -26,9 +26,13 @@
       </div>
     </div>
 
-    <mt-progress :value="progress" v-if="progressShow"  transition="progress-fade">
-      <div slot="end">{{progress}}%</div>
-    </mt-progress>
+    <div class="page-progress-wrapper">
+      <mt-button size="large" type="primary" @click.native="uploadFile">上传文件</mt-button>
+      <mt-progress :value="progress" v-if="progressShow" transition="progress-fade">
+        <div slot="end">{{ progress }}%</div>
+      </mt-progress>
+    </div>
+
 
   </div>
 </template>
@@ -36,10 +40,6 @@
 
   export default {
     props: {
-      uploadURL: {
-        type: String,
-        required: true
-      },
       fileLoading: {
         type: String,
         default: '上传中...'
@@ -57,6 +57,7 @@
       }
     },
     methods: {
+      //预览文件
       upload(e) {
         var that = this;
         var fileupload = e.target.files[0];
@@ -69,6 +70,10 @@
             that.imageSrc = this.result;
           }
         }
+
+      },
+      //上传文件
+      uploadFile() {
         if(this.fileupload.name.lastIndexOf(".")>-1){
           let res = s3.checkFile(this.fileupload);
           if (res.status =='400'){
@@ -77,6 +82,7 @@
             this.$emit('sendFile',this.fileupload)
           }
         }
+
       },
       //删除上传文件
       deleteFile(url){
@@ -94,10 +100,21 @@
         }
       },
 
+
+    },
+    watch: {
+      value(val) {
+        if (val >= 100) {
+          this.uploading = false;
+          this.progressVisible = false;
+          setTimeout(() => Toast({ message: '上传成功', position: 'bottom', duration: 1000 }), 200);
+          clearTimeout(this.timer);
+        }
+      }
     },
     created(){
 //      s3.setAllow(['txt']);
-    }
+    },
   }
 </script>
 <style>
