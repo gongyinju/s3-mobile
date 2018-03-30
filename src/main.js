@@ -18,7 +18,6 @@ Vue.use(JSLoader)
 Vue.use(CSSLoader)
 Vue.config.productionTip = false
 
-
 // dynamic router
 const loader = function (resolve, url) {
   if (!s3.istore.getLocal(url)) {
@@ -92,12 +91,12 @@ s3.ajax('/config/router',{},appid)
     components: { App },
     template: '<App/>',
     mounted () {
-      if(config.basic['login']){
+      if(config.basic['login']=== false){
         store.commit('setAppId',appid)
-        if(config.basic.login){
-          store.dispatch('getUserState',appid)
-        }   
-      }
+      }else{
+        store.commit('setAppId',appid)
+        store.dispatch('getUserState',appid)
+      } 
     }
   })
 })

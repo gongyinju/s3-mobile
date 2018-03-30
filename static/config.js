@@ -9,7 +9,6 @@ config.basic.companyName = "ABC有限公司电子供应链平台";
 config.basic.logo = "http://file.gongyinju.com/group1/M00/00/5B/bQYdm1mH6MCARxkxAABfhUPd7bM324.jpg";
 config.basic.theme = "skinRed";
 //是否需要登陆
-config.basic.login = true;
 config.basic.baseUrl = 'http://localhost:8080/mocks'
 config.basic.custid = 's3Core'
 

@@ -1,27 +1,33 @@
 <template>
   <transition class="animated" enter-active-class="slideInUp" enter-leave-class="slideOutDown" mode = "out-in">
-    <div  class="loginBox">
-      <div class="container">
-        <img class="logo" alt="s3core" :src="logo" />
-        <div>{{company}}</div>
-        <form >
-          <input type="text" placeholder="请输入用户名" v-model="loginName" required maxlength="30"/>
-          <input type="password" placeholder="请输入密码" v-model="password" required maxlength="16"/>
-          <a href="#">忘记密码?</a>
-          <mt-button type="primary" size="large" class="loginBtn" @click="doLogin">登录</mt-button>
-        </form>
-
-        <div class="signup">
-          <p><span>{{fullyear}}</span> <span >{{company}}</span>版权所有</p>
+    <div>
+      <div  class="loginBox">
+        <div class="container">
+          <img class="logo" alt="s3core" :src="logo" />
+          <div>{{company}}</div>
+          <form v-if="!isLoggedIn">
+            <input type="text" placeholder="请输入用户名" v-model="loginName" required maxlength="30"/>
+            <input type="password" placeholder="请输入密码" v-model="password" required maxlength="16"/>
+            <a href="#">忘记密码?</a>
+            <mt-button type="primary" size="large" class="loginBtn" @click="doLogin">登录</mt-button>
+          </form>
+          <div class="signup">
+            <p><span>{{fullyear}}</span> <span >{{company}}</span>版权所有</p>
+          </div>
         </div>
       </div>
-    </div>
+      <mt-popup v-model="showFirstLogin" position="right">
+        <s3-firstLogin :success="success"></s3-firstLogin>
+      </mt-popup>
+  </div>
   </transition>
 </template>
 
 <script>
 import { MessageBox } from 'mint-ui';
 import store from '@/store'
+import s3FirstLogin from '@/components/s3-firstlogin.vue'
+
 export default {
   props:{
     company: {
@@ -49,6 +55,20 @@ export default {
     },
     appid () {
       return this.$store.state.appid
+    },
+    isLoggedIn () {
+      return this.$store.getters.isLogedIn
+    },
+    user () {
+       return this.$store.state.currentUser || {}
+    },
+    showFirstLogin: {
+      get: function(){
+        return !!this.$store.state.isFirstLogedIn
+      },
+      set: function(){
+        this.$store.commit('userFirstLogin',this.showFirstLogin)
+      }
     }
   },
   methods: {
@@ -91,14 +111,13 @@ export default {
       })
       .then(result => {
         if (result.retCode === '200'){
-          let firstLoginFlag = true
           if (result.isFirstLogin === 'true') {
             firstLoginFlag = true
             self.$store.commit('userFirstLogin',firstLoginFlag)
           } else {
             self.$store.commit('userLogin')
             self.$store.dispatch('getUserState')
-            self.$router.push(self.success)
+            this.$router.push(this.success)
           }
         } else {
           MessageBox('提示', result.retMsg ||result.retmsg )
@@ -108,6 +127,9 @@ export default {
         throw new Error(error)
       })
     }
+  },
+  components:{
+    s3FirstLogin
   }
 }
 </script>

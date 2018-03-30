@@ -21,6 +21,7 @@
       changeCompany: function(e){
         console.log(e)
         this.companyName =e.companyName;
+        this.$store.commit('setCurrentCompany',e)
       }
     },
     created(){

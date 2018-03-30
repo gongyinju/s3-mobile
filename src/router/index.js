@@ -17,7 +17,6 @@ try {
       path: '/login',
       name: '',
       meta: {
-        notRequireAuth: true,
         allowBack:false
       },
       component: LoginView
@@ -133,10 +132,11 @@ router.beforeEach((to, from, next) => {
   }
   store.commit('pageinfo', page)
 
-  console.log(store.state)  
-  // 在home路由中配置的meta
-  if(config.basic.login && !to.meta.notRequireAuth && !store.getters.isLogedIn) {
-    store.commit('userLogout')
+  // console.log(store.state)  
+  // 进登录页面直接进，不用判登录
+  if(config.basic.login == false || to.path == '/login'){
+    next()
+  }else if(!store.getters.isLogedIn ||　store.state.isFirstLogedIn) {
     next({
       path: '/login'
     })
