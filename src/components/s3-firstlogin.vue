@@ -64,17 +64,50 @@
     },
     methods: {
       changePassword: function(event){
-        console.log(this.user)
-        console.log(this.$refs.formvalcode.phone)
-        console.log(this.$refs.formvalcode.validatecode)
+        let self = this
+
+        var getPublicKey = function() {
+          return new Promise((resolve,reject) => {
+            let param = {
+              appid: self.appid
+            }
+            s3.ajax('/publicKey',param,'usermanage').then(result => {
+              if(result.retCode == '200') {
+                resolve(result) 
+              } else {
+                reject(result)
+              }
+            })
+          })
+        }
 
         //此处进行密码加密 + ajax调用
+        getPublicKey()
+        .then(data => {
+          let oldPassword = s3.RSAEncrypt(data.modulus,data.exponent,self.oldPassword)
+          let newPassword = s3.RSAEncrypt(data.modulus,data.exponent,self.newPassword)
+          let confirmPassword = s3.RSAEncrypt(data.modulus,data.exponent,self.repeatPassword)
 
 
-        this.$store.commit('userFirstLogin',false)
-        this.$store.commit('userLogin')
-        this.$store.dispatch('getUserState')
-        this.$router.push(this.success)
+          let param = {
+            oldPassword:oldPassword,
+            newPassword:newPassword,
+            confirmpassword:confirmPassword,
+            mobile:self.$refs.formvalcode.phone,
+            validateCode:self.$refs.formvalcode.validatecode
+          }
+          return s3.ajax('/firstLogin',param,'usermanage')
+        })
+        .then(result=>{
+          if(result.retCode && result.retCode == "200"){
+            self.$store.commit('userFirstLogin',false)
+            self.$store.commit('userLogin')
+            self.$store.dispatch('getUserState')
+            self.$router.push(self.success)
+          }else{
+            self.$alert(result.retMsg,'出错了')
+          }
+        })
       }
     }
   }

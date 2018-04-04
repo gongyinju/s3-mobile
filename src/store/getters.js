@@ -1,5 +1,11 @@
 export default {
-	roleId: state => state.currentRole.RoleEntityid,
+	roleId (state){
+		if (state.currentRole){
+			return state.currentRole.RoleEntityid
+		} else {
+			return null
+		}
+	},
 	isLogedIn (state) {
 		if(!state.isLogedIn){
 			state.isLogedIn = s3.istore.get('isLogedIn')
